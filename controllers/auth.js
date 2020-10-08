@@ -1,11 +1,13 @@
 const express = require ('express');
-
+const {validationResult} = require ('express-validator');
 
 
 const crearUsuario = (req,res = express.response)=>{
 
     const {name,password,empresa} = req.body
-    res.json({
+   
+       
+    res.status(201).json({
         ok:true,
         msg:'Registro',
         name,
@@ -21,7 +23,9 @@ const crearUsuario = (req,res = express.response)=>{
 const loginUsuario = (req,res = express.response)=>{
 
     const {name,password,empresa} = req.body
-    res.json({
+
+    
+    res.status(200).json({
         ok:true,
         msg:'Login',
         name,
