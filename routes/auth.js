@@ -15,7 +15,6 @@ router.post(
     [
         check('name','El usuario es obligatorio').not().isEmpty(),
         check('password','El password debe tener minimo 6 caracteres').isLength({min:6}),
-        check('empresa','La empresa es obligatorio').not().isEmpty(),
         validarCampos
     ],
     crearUsuario);
@@ -25,7 +24,6 @@ router.post(
     [
         check('name','El usuario es obligatorio').not().isEmpty(),
         check('password','El password debe tener minimo 6 caracteres').isLength({min:6}),
-        check('empresa','La empresa es obligatorio').not().isEmpty(),
         validarCampos
     ],
     loginUsuario);

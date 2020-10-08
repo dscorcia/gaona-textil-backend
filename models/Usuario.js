@@ -10,11 +10,8 @@ const UsuarioSchema = Schema({
     password: {
         type: String,
         require: true
-    }, 
-    empresa: {
-        type: String,
-        require: true
-    } 
+    }
+   
 
 });
 
