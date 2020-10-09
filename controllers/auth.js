@@ -2,6 +2,7 @@ const express = require ('express');
 const {validationResult} = require ('express-validator');
 const Usuario = require('../models/Usuario')
 const bcrypt = require('bcryptjs');
+const {generarJWT} = require('../helpers/jwt')
 
 
 const crearUsuario = async (req,res = express.response)=>{
@@ -24,11 +25,17 @@ try {
      usuario.password = bcrypt.hashSync(password,salt);
 
     await usuario.save();
+
+    //Generar JWT
+
+    const token = await generarJWT(usuario.id, usuario,name)
+
          
     res.status(201).json({
         ok:true,
         msg:usuario.id,
-        name: usuario.name
+        name: usuario.name,
+        token
         
     })
 
@@ -45,18 +52,47 @@ try {
 
 
 
-const loginUsuario = (req,res = express.response)=>{
+const loginUsuario =  async (req,res = express.response)=>{
 
-    const {name,password} = req.body
+    const {name,empresa,password} = req.body
 
-    
-    res.status(200).json({
-        ok:true,
-        msg:'Login',
-        name,
-        password
-       
-    })
+    try {
+               let usuario = await Usuario.findOne({name})
+        if(!usuario){
+        return res.status(400).json({
+            ok: false,
+            msg:'El usuario no existe'
+        })
+        }
+
+        //confirmar los passwords
+        const validPassword = bcrypt.compareSync(password,usuario.password);
+        if(!validPassword){
+            return res.status(400).json({
+                ok: false,
+                msg:"Password incorrecto"
+            });
+        }
+
+        //Generar nuestro JWT
+
+        const token = await generarJWT(usuario.id, usuario,name)
+
+        res.json({
+            ok:"true",
+            uid: usuario.id,
+            name: usuario.name,
+            token
+
+        })
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            ok: false,
+            msg:'Hable con el administrador, no se creó el usuario'
+        });
+        }
 
 }
 
