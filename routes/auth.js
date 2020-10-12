@@ -20,6 +20,7 @@ router.post(
         check('apellido','El apellido debe ser obligatorio').not().isEmpty(),
         check('dni','El dni debe ser obligatorio').not().isEmpty(),
         check('password','El password debe tener minimo 6 caracteres').isLength({min:6}),
+        check('perfil','El perfil debe ser obligatorio').not().isEmpty(),
         validarCampos
     ],
     crearUsuario);
@@ -30,6 +31,7 @@ router.post(
     [
         check('name','El usuario es obligatorio').not().isEmpty(),
         check('password','El password debe tener minimo 6 caracteres').isLength({min:6}),
+        check('password','El password es obligatorio').not().isEmpty(),
         check('empresa','La empresa es obligatoria').not().isEmpty(),
         validarCampos
     ],
@@ -57,6 +59,7 @@ router.put('/modify/:name',[
     check('apellido','El apellido debe ser obligatorio').not().isEmpty(),
     check('dni','El dni debe ser obligatorio').not().isEmpty(),
     check('password','El password debe tener minimo 6 caracteres').isLength({min:6}),
+    check('perfil','El perfil debe ser obligatorio').not().isEmpty(),
     validarCampos
 
     ],

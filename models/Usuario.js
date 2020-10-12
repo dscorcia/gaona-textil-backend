@@ -25,6 +25,10 @@ const UsuarioSchema = new Schema({
     password: {
         type: String,
         require: true
+    },
+    perfil: {
+        type: String,
+        require: true
     }
    
 

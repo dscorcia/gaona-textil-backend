@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs');
 const {generarJWT} = require('../helpers/jwt');
 const {_} = require('underscore');
 
-
+/*CREACION DE USUARIO */
 const crearUsuario = async (req,res = express.response)=>{
 
     const {name,password} = req.body
@@ -51,7 +51,7 @@ try {
 }
 
 
-
+/*LOGUIN DE USUARIO */
 
 const loginUsuario =  async (req,res = express.response)=>{
 
@@ -62,7 +62,7 @@ const loginUsuario =  async (req,res = express.response)=>{
         if(!usuario){
         return res.status(400).json({
             ok: false,
-            msg:'El usuario no existe'
+            msg:'El usuario/empresa no existe'
         })
         }
 
@@ -119,6 +119,7 @@ const borrarUsuario = async(req, res) => {
 
   
     let name = req.params.name;
+    
 
     await Usuario.deleteOne({name}, (err, userDeleted) => {
         console.log(err)
@@ -154,9 +155,12 @@ const borrarUsuario = async(req, res) => {
 
 }
 
+
+/* MODIFICAR USUARIO */
 const modificarUsuario = async(req, res) => {
 
     let name = req.params.name;
+
     //El _.pick valida que los argumentos a actualizar sean los que se encuentran en el []
     let body = _.pick(req.body, ['name', 'nombre', 'apellido', 'dni', 'password']);
     console.log(body)
@@ -169,12 +173,14 @@ const modificarUsuario = async(req, res) => {
                 err
             })
         }
-
+ 
+        
         res.json({
             status: 'Usuario modificado',
             ok: true,
             usuario: usuarioDB
         });
+    
 
     });
 
