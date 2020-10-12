@@ -2,7 +2,8 @@ const express = require ('express');
 const {validationResult} = require ('express-validator');
 const Usuario = require('../models/Usuario')
 const bcrypt = require('bcryptjs');
-const {generarJWT} = require('../helpers/jwt')
+const {generarJWT} = require('../helpers/jwt');
+const {_} = require('underscore');
 
 
 const crearUsuario = async (req,res = express.response)=>{
@@ -114,8 +115,75 @@ const revalidarToken = async (req,res = express.response)=>{
     
 }
 
+const borrarUsuario = async(req, res) => {
+
+  
+    let name = req.params.name;
+
+    await Usuario.deleteOne({name}, (err, userDeleted) => {
+        console.log(err)
+        console.log(userDeleted);
+        console.log(name);
+        
+
+        if (err) {
+            return res.status(400).json({
+                ok: false,
+                err
+            })
+        }
+
+        if (!userDeleted) {
+            return res.status(400).json({
+                ok: false,
+                err: {
+                    message: "Usuario no existe"
+                }
+            })
+
+        }
+
+        res.json({
+            status: 'Usuario borrado',
+            ok: true,
+            usuario: userDeleted
+        });
+
+
+    });
+
+}
+
+const modificarUsuario = async(req, res) => {
+
+    let name = req.params.name;
+    //El _.pick valida que los argumentos a actualizar sean los que se encuentran en el []
+    let body = _.pick(req.body, ['name', 'nombre', 'apellido', 'dni', 'password']);
+    console.log(body)
+    //El {new:true} es para que el return sea el obj actualizado
+    //El {runValidators:true} es para que se apliquen las validaciones configuradas en el modelo de datos
+    await Usuario.updateOne({name}, body, { new: true, runValidators: true, context: 'query' }, (err, usuarioDB) => {
+        if (err) {
+            return res.status(400).json({
+                ok: false,
+                err
+            })
+        }
+
+        res.json({
+            status: 'Usuario modificado',
+            ok: true,
+            usuario: usuarioDB
+        });
+
+    });
+
+}
+
 module.exports ={
     crearUsuario,
     loginUsuario,
-    renewToken: revalidarToken
+    renewToken: revalidarToken,
+    borrarUsuario,
+    modificarUsuario
 }
