@@ -46,6 +46,79 @@ try {
 }
 
 
+
+/*BORRAR CLIENTE */
+const borrarCliente = async(req, res) => {
+
+  
+    let cuit = req.params.cuit;
+    
+
+    await Cliente.deleteOne({cuit}, (err, clienteDeleted) => {
+           
+
+        if (err) {
+            return res.status(400).json({
+                ok: false,
+                err
+            })
+        }
+
+        if (!clienteDeleted) {
+            return res.status(400).json({
+                ok: false,
+                err: {
+                    message: "Cliente no existe"
+                }
+            })
+
+        }
+
+        res.json({
+            status: 'cliente borrado',
+            ok: true,
+            cuit: cuit
+        });
+
+
+    });
+
+}
+
+/*MODIFICAR CLIENTE */
+
+/* MODIFICAR USUARIO */
+const modificarCliente = async(req, res) => {
+
+    let cuit = req.params.cuit;
+
+    //El _.pick valida que los argumentos a actualizar sean los que se encuentran en el []
+    let body = _.pick(req.body, ['razonSocial', 'cuit', 'telefono']);
+  
+    //El {new:true} es para que el return sea el obj actualizado
+    //El {runValidators:true} es para que se apliquen las validaciones configuradas en el modelo de datos
+    await Cliente.updateOne({cuit}, body, { new: true, runValidators: true, context: 'query' }, (err, clienteDB) => {
+        if (err) {
+            return res.status(400).json({
+                ok: false,
+                err
+            })
+        }
+ 
+        
+        res.json({
+            status: 'Cliente modificado',
+            ok: true,
+            cliente: clienteDB
+        });
+    
+
+    });
+
+}
+
 module.exports={
-    crearCliente
+    crearCliente,
+    borrarCliente,
+    modificarCliente
 }

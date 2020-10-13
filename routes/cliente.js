@@ -5,7 +5,7 @@
  const {Router} = require('express');
 const {check} = require('express-validator');
 const {validarCampos} = require('../middlewares/validar-campos');
-const {crearCliente} = require('../controllers/cliente')
+const {crearCliente, borrarCliente, modificarCliente} = require('../controllers/cliente')
 const router = Router();
 
 
@@ -20,4 +20,28 @@ router.post(
     ],
     crearCliente);
 
-    module.exports = router;
+
+    /*BORRAR  CLIENTE */
+router.delete('/delete/:cuit',[
+   
+    check('cuit','El Cuit es obligatorio').not().isEmpty(),
+    validarCampos
+
+],
+borrarCliente);
+
+/*MODIFICAR CLIENTE */
+
+/* MODIFICACION DE USUARIO*/
+router.put('/modify/:cuit',[
+
+    check('razonSocial','La razon social es obligatoria').not().isEmpty(),
+    check('cuit','El Cuit/Cuil es obligatorio').not().isEmpty(),
+    check('telefono','El telefono es obligatorio').not().isEmpty(),
+    validarCampos
+
+    ],
+    modificarCliente);
+
+
+module.exports = router;
