@@ -55,14 +55,14 @@ try {
 
 const loginUsuario =  async (req,res = express.response)=>{
 
-    const {name,empresa,password} = req.body
+    const {name,password} = req.body
 
     try {
                let usuario = await Usuario.findOne({name})
         if(!usuario){
         return res.status(400).json({
             ok: false,
-            msg:'El usuario/empresa no existe'
+            msg:'El usuario no existe'
         })
         }
 
