@@ -87,7 +87,6 @@ const borrarCliente = async(req, res) => {
 
 /*MODIFICAR CLIENTE */
 
-/* MODIFICAR USUARIO */
 const modificarCliente = async(req, res) => {
 
     let cuit = req.params.cuit;

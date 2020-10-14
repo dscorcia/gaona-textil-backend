@@ -30,7 +30,7 @@ router.delete('/delete/:cuit',[
 ],
 borrarCliente);
 
-/*MODIFICAR CLIENTE */
+
 
 /* MODIFICACION DE USUARIO*/
 router.put('/modify/:cuit',[
