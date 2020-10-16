@@ -59,7 +59,6 @@ router.put('/modify/:name',[
     check('password','El password debe tener minimo 6 caracteres').isLength({min:6}),
     check('perfil','El perfil debe ser obligatorio').not().isEmpty(),
     validarCampos
-
     ],
     modificarUsuario);
 

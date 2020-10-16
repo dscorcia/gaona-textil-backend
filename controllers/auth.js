@@ -163,10 +163,12 @@ const modificarUsuario = async(req, res) => {
     let name = req.params.name;
 
     //El _.pick valida que los argumentos a actualizar sean los que se encuentran en el []
-    let body = _.pick(req.body, ['name', 'nombre', 'apellido', 'dni', 'password']);
+    let body = _.pick(req.body, ['name', 'nombre', 'apellido', 'dni', 'password','perfil']);
     console.log(body)
     //El {new:true} es para que el return sea el obj actualizado
     //El {runValidators:true} es para que se apliquen las validaciones configuradas en el modelo de datos
+
+    
     await Usuario.updateOne({name}, body, { new: true, runValidators: true, context: 'query' }, (err, usuarioDB) => {
         if (err) {
             return res.status(400).json({
