@@ -34,10 +34,9 @@ borrarCliente);
 
 /* MODIFICACION DE USUARIO*/
 router.put('/modify/:cuit',[
-
-    check('razonSocial','La razon social es obligatoria').not().isEmpty(),
-    check('cuit','El Cuit/Cuil es obligatorio').not().isEmpty(),
-    check('telefono','El telefono es obligatorio').not().isEmpty(),
+   
+    check('idRegistro', 'El idRegistro es obligatorio'),
+    check('nombre','El nombre es obligatorio').not().isEmpty(),
     validarCampos
 
     ],

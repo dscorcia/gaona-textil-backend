@@ -4,23 +4,31 @@ const Schema = mongoose.Schema;
 
 const ClienteSchema = new Schema({
 
+    idRegistro:{
+        type:Number,
+        required:true,
+        unique:true
+    },
+
     razonSocial:{
         type:String,
-        require: true,
+        require: false
     },
 
     cuit:{
         type:Number,
-        require: true,
-        unique:true
+        require: false,
+    },
+
+    nombre:{
+        type:String,
+        require: false,
     },
 
     telefono:{
         type:Number,
-        require: true
+        require: false 
     }
-
-
 
 })
 

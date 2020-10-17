@@ -11,14 +11,14 @@ const {_} = require('underscore');
 /*CREACION DE CLIENTE */
 const crearCliente = async (req,res = express.response)=>{
 
-    const {cuit} = req.body
+    const {idRegistro} = req.body
 try {
     
-    let cliente = await Cliente.findOne({cuit})
+    let cliente = await Cliente.findOne({idRegistro})
     if(cliente){
         return res.status(400).json({
             ok: false,
-            msg:'Ya existe ese número de Cuit'
+            msg:'Ya existe ese cliente'
         })
     }
 
@@ -29,8 +29,10 @@ try {
      res.status(201).json({
         ok:true,
         msg:cliente.id,
+        msg:idRegistro,
         cuit: cliente.cuit,
         razonSocial: cliente.razonSocial,
+        nombre: cliente.nombre,
         telefono: cliente.telefono
                 
     })
@@ -51,10 +53,11 @@ try {
 const borrarCliente = async(req, res) => {
 
   
-    let cuit = req.params.cuit;
+    let idRegistro = req.params.idRegistro;
+    let nombre = req.body;
     
 
-    await Cliente.deleteOne({cuit}, (err, clienteDeleted) => {
+    await Cliente.deleteOne({idRegistro}, (err, clienteDeleted) => {
            
 
         if (err) {
@@ -77,7 +80,8 @@ const borrarCliente = async(req, res) => {
         res.json({
             status: 'cliente borrado',
             ok: true,
-            cuit: cuit
+            nombre: nombre,
+            idRegistro: idRegistro
         });
 
 
@@ -89,14 +93,14 @@ const borrarCliente = async(req, res) => {
 
 const modificarCliente = async(req, res) => {
 
-    let cuit = req.params.cuit;
+    let idRegistro = req.params.idRegistro;
 
     //El _.pick valida que los argumentos a actualizar sean los que se encuentran en el []
-    let body = _.pick(req.body, ['razonSocial', 'cuit', 'telefono']);
+    let body = _.pick(req.body, ['idRegistro', 'cuit', 'Razon social', 'nombre', 'telefono']);
   
     //El {new:true} es para que el return sea el obj actualizado
     //El {runValidators:true} es para que se apliquen las validaciones configuradas en el modelo de datos
-    await Cliente.updateOne({cuit}, body, { new: true, runValidators: true, context: 'query' }, (err, clienteDB) => {
+    await Cliente.updateOne({idRegistro}, body, { new: true, runValidators: true, context: 'query' }, (err, clienteDB) => {
         if (err) {
             return res.status(400).json({
                 ok: false,
