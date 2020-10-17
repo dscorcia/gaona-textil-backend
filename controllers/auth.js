@@ -161,6 +161,8 @@ const borrarUsuario = async(req, res) => {
 const modificarUsuario = async(req, res) => {
 
     let name = req.params.name;
+   
+
 
     //El _.pick valida que los argumentos a actualizar sean los que se encuentran en el []
     let body = _.pick(req.body, ['name', 'nombre', 'apellido', 'dni', 'password','perfil']);
@@ -170,13 +172,17 @@ const modificarUsuario = async(req, res) => {
 
     
     await Usuario.updateOne({name}, body, { new: true, runValidators: true, context: 'query' }, (err, usuarioDB) => {
+       
         if (err) {
             return res.status(400).json({
                 ok: false,
                 err
             })
         }
- 
+
+      
+
+        
         
         res.json({
             status: 'Usuario modificado',
