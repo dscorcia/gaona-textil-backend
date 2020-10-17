@@ -161,15 +161,17 @@ const borrarUsuario = async(req, res) => {
 const modificarUsuario = async(req, res) => {
 
     let name = req.params.name;
-   
-
-
+    
     //El _.pick valida que los argumentos a actualizar sean los que se encuentran en el []
     let body = _.pick(req.body, ['name', 'nombre', 'apellido', 'dni', 'password','perfil']);
-    console.log(body)
+    //console.log(body)
+    console.log(body.password);
     //El {new:true} es para que el return sea el obj actualizado
     //El {runValidators:true} es para que se apliquen las validaciones configuradas en el modelo de datos
 
+         //Encriptar contraseña
+    const salt = bcrypt.genSaltSync();
+    body.password = bcrypt.hashSync(body.password,salt);
     
     await Usuario.updateOne({name}, body, { new: true, runValidators: true, context: 'query' }, (err, usuarioDB) => {
        
@@ -179,10 +181,6 @@ const modificarUsuario = async(req, res) => {
                 err
             })
         }
-
-      
-
-        
         
         res.json({
             status: 'Usuario modificado',
@@ -194,6 +192,8 @@ const modificarUsuario = async(req, res) => {
     });
 
 }
+
+
 
 module.exports ={
     crearUsuario,
