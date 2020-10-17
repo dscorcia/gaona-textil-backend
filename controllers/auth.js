@@ -29,7 +29,7 @@ try {
 
     //Generar JWT
 
-    const token = await generarJWT(usuario.id, usuario,name)
+    const token = await generarJWT(usuario.id, usuario.name)
 
          
     res.status(201).json({
@@ -77,7 +77,7 @@ const loginUsuario =  async (req,res = express.response)=>{
 
         //Generar nuestro JWT
 
-        const token = await generarJWT(usuario.id, usuario,name)
+        const token = await generarJWT(usuario.id, usuario.name)
 
         res.json({
             ok:"true",

@@ -2,7 +2,6 @@
 const express = require ('express');
 const {validationResult} = require ('express-validator');
 const Cliente   = require('../models/Cliente')
-const bcrypt = require('bcryptjs');
 const {_} = require('underscore');
 
 
@@ -12,6 +11,7 @@ const {_} = require('underscore');
 const crearCliente = async (req,res = express.response)=>{
 
     const {idRegistro} = req.body
+  
 try {
     
     let cliente = await Cliente.findOne({idRegistro})
@@ -29,7 +29,7 @@ try {
      res.status(201).json({
         ok:true,
         msg:cliente.id,
-        msg:idRegistro,
+        idRegistro: cliente.idRegistro,
         cuit: cliente.cuit,
         razonSocial: cliente.razonSocial,
         nombre: cliente.nombre,
@@ -54,7 +54,7 @@ const borrarCliente = async(req, res) => {
 
   
     let idRegistro = req.params.idRegistro;
-    let nombre = req.body;
+    let nombre = req.body.nombre;
     
 
     await Cliente.deleteOne({idRegistro}, (err, clienteDeleted) => {
@@ -96,7 +96,7 @@ const modificarCliente = async(req, res) => {
     let idRegistro = req.params.idRegistro;
 
     //El _.pick valida que los argumentos a actualizar sean los que se encuentran en el []
-    let body = _.pick(req.body, ['idRegistro', 'cuit', 'Razon social', 'nombre', 'telefono']);
+    let body = _.pick(req.body, ['idRegistro', 'cuit', 'razonSocial', 'nombre', 'telefono']);
   
     //El {new:true} es para que el return sea el obj actualizado
     //El {runValidators:true} es para que se apliquen las validaciones configuradas en el modelo de datos

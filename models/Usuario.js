@@ -7,27 +7,28 @@ const UsuarioSchema = new Schema({
     name:{
         type:String,
         require: true,
-        unique: true
+        unique: true,
     },
     nombre:{
         type:String,
-        require:true
+        require:true,
     },
     apellido:{
         type:String,
-        require:true
+        require:true,
     },
     dni:{
         type:Number,
-        require:true
+        require:true,
     },
     password: {
         type: String,
-        require: true
+        require: true,
+        
     },
     perfil: {
         type: String,
-        require: true
+        require: true,
     }
    
 
