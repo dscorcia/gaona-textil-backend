@@ -5,7 +5,7 @@
 const {Router} = require('express');
 const {check} = require('express-validator');
 const {validarCampos} = require('../middlewares/validar-campos');
-const {crearUsuario, loginUsuario, renewToken: revalidarToken,borrarUsuario, modificarUsuario} = require('../controllers/auth');
+const {crearUsuario, loginUsuario, renewToken: revalidarToken,borrarUsuario, modificarUsuario, obtenerUsuarios} = require('../controllers/auth');
 const {validarJWT} = require('../middlewares/validar-jwt');
 const router = Router();
 
@@ -61,6 +61,11 @@ router.put('/modify/:name',[
     validarCampos
     ],
     modificarUsuario);
+
+
+    /*OBTENER USUARIO */
+
+    router.get('/usuarios', obtenerUsuarios);
 
 
 module.exports = router;

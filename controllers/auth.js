@@ -192,7 +192,29 @@ const modificarUsuario = async(req, res) => {
     });
 
 }
+ /*OBTENER USUARIOS */
 
+ const obtenerUsuarios = async (req, res = express.response)=>{
+    const usuarios = await Usuario.find({})
+    .exec((err, usuarios) => {
+
+
+        if (err) {
+            return res.status(400).json({
+                ok: false,
+                err
+            })
+        }
+    
+
+    res.json({
+        ok:true,
+        usuarios
+    })
+
+
+ })
+}
 
 
 module.exports ={
@@ -200,5 +222,6 @@ module.exports ={
     loginUsuario,
     renewToken: revalidarToken,
     borrarUsuario,
-    modificarUsuario
+    modificarUsuario,
+    obtenerUsuarios
 }
