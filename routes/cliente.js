@@ -5,7 +5,7 @@
  const {Router} = require('express');
 const {check} = require('express-validator');
 const {validarCampos} = require('../middlewares/validar-campos');
-const {crearCliente, borrarCliente, modificarCliente} = require('../controllers/cliente')
+const {crearCliente, borrarCliente, modificarCliente,obtenerClientes} = require('../controllers/cliente')
 const router = Router();
 
 
@@ -31,7 +31,7 @@ borrarCliente);
 
 
 
-/* MODIFICACION DE USUARIO*/
+/* MODIFICACION DE CLIENTE*/
 router.put('/modify/:idRegistro',[
    
     check('idRegistro', 'El idRegistro es obligatorio').not().isEmpty(),
@@ -39,6 +39,11 @@ router.put('/modify/:idRegistro',[
 
     ],
     modificarCliente);
+
+/*OBTENER CLIENTES */
+
+router.get('/clientes', obtenerClientes);
+
 
 
 module.exports = router;

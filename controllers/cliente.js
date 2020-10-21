@@ -120,8 +120,36 @@ const modificarCliente = async(req, res) => {
 
 }
 
+
+/*OBTENER CLIENTES */
+
+const obtenerClientes = async (req, res = express.response)=>{
+    const clientes = await Cliente.find({})
+    .exec((err, clientes) => {
+
+
+        if (err) {
+            return res.status(400).json({
+                ok: false,
+                err
+            })
+        }
+    
+
+    res.json({
+        ok:true,
+        clientes
+    })
+
+
+ })
+}
+
+
+  
 module.exports={
     crearCliente,
     borrarCliente,
-    modificarCliente
+    modificarCliente,
+    obtenerClientes
 }
