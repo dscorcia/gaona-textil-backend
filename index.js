@@ -21,7 +21,7 @@ app.use(express.json());
 // //Rutas
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/cliente', require('./routes/cliente'));
-app.use('api/venta',require('./routes/venta'))
+app.use('api/venta',require('./routes/venta'));
 // app.use('/api/remitoHilanderia', require('./routes/remitoHilanderia'));
 
 

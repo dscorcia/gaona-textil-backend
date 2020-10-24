@@ -12,7 +12,8 @@ const {_} = require('underscore');
 const crearVenta = async (req,res = express.response)=>{
 
     const {remitoVenta, cliente } = req.body
-    let  elCliente = obtenerClienteParaVenta(cliente) 
+    let clienteVenta = await Cliente.findOne({cliente})
+    console.log(clienteVenta);
   
 try {
     
@@ -33,7 +34,7 @@ try {
         msg:"Venta cargada",
         remitoVenta: venta.remitoVenta,
         fecha: remitoVenta.fecha,
-        cliente: elCliente,
+        cliente: clienteVenta,
         idArticulo: venta.idArticulo,
         descripcion: venta.descripcion,
         color: venta.color,
@@ -84,7 +85,7 @@ const borrarVenta = async(req, res) => {
         }
 
         res.json({
-            status: 'venta borrada',
+            status: 'Venta borrada',
             ok: true,
             nombre: nombre,
             ventaRemito: ventaRemito
@@ -97,9 +98,42 @@ const borrarVenta = async(req, res) => {
 
 
 
+/*MODIFICAR CLIENTE */
+
+const modificarVenta = async(req, res) => {
+
+    let remitoVenta = req.params.remitoVenta;
+
+    //El _.pick valida que los argumentos a actualizar sean los que se encuentran en el []
+    let body = _.pick(req.body, ['remitoVenta', 'fecha', 'cliente', 'idArticulo', 'descripcion','color','cantidad','precioKg','subtotalArt','total']);
+  
+    //El {new:true} es para que el return sea el obj actualizado
+    //El {runValidators:true} es para que se apliquen las validaciones configuradas en el modelo de datos
+    await Venta.updateOne({remitoVenta}, body, { new: true, runValidators: true, context: 'query' }, (err, ventaDB) => {
+        if (err) {
+            return res.status(400).json({
+                ok: false,
+                err
+            })
+        }
+ 
+        
+        res.json({
+            status: 'Venta modificado',
+            ok: true,
+            venta: ventaDB
+        });
+    
+
+    });
+
+}
+
+
 
 
 module.exports={
     crearVenta,
-    borrarVenta
+    borrarVenta,
+    modificarVenta
 }
