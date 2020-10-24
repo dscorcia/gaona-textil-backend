@@ -4,7 +4,7 @@ const {validationResult} = require ('express-validator');
 const Cliente   = require('../models/Cliente');
 const Venta = require('../models/Venta');
 const {_} = require('underscore');
-const {obtenerClientes} = require('../controllers/cliente')
+
 
 
 
@@ -56,6 +56,50 @@ try {
 }
 
 
+/*BORRAR VENTA */
+const borrarVenta = async(req, res) => {
+
+  
+    let remitoVenta = req.params.remitoVenta;
+        
+
+    await Venta.deleteOne({remitoVenta}, (err, ventaDeleted) => {
+           
+
+        if (err) {
+            return res.status(400).json({
+                ok: false,
+                err
+            })
+        }
+
+        if (!ventaDeleted) {
+            return res.status(400).json({
+                ok: false,
+                err: {
+                    message: "Venta no existe"
+                }
+            })
+
+        }
+
+        res.json({
+            status: 'venta borrada',
+            ok: true,
+            nombre: nombre,
+            ventaRemito: ventaRemito
+        });
+
+
+    });
+
+}
+
+
+
+
+
 module.exports={
-    crearVenta
+    crearVenta,
+    borrarVenta
 }

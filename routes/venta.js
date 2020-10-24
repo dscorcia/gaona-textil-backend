@@ -7,7 +7,7 @@
  const {check} = require('express-validator');
  const {validarCampos} = require('../middlewares/validar-campos');
  const router = Router();
- const { crearVenta } = require('../controllers/venta')
+ const { crearVenta,borrarVenta } = require('../controllers/venta')
 
 
 
@@ -31,14 +31,14 @@ router.post(
     crearVenta);
 
 
-//     /*BORRAR  CLIENTE */
-// router.delete('/delete/:remitoVenta',[
+    /*BORRAR  CLIENTE */
+router.delete('/delete/:remitoVenta',[
    
-//     check('remitoVenta', 'El remito de venta es obligatorio').not().isEmpty(),
-//     validarCampos
+    check('remitoVenta', 'El remito de venta es obligatorio').not().isEmpty(),
+    validarCampos
 
-// ],
-// borrarVenta);
+],
+borrarVenta);
 
 
 
