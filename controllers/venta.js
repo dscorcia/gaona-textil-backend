@@ -37,7 +37,7 @@ try {
         msg:"Venta cargada",
         remitoVenta: venta.remitoVenta,
         fecha: remitoVenta.fecha,
-        cliente: clienteVenta[0].nombre,
+        cliente: clienteVenta[0].nombr5,
         idArticulo: venta.idArticulo,
         descripcion: venta.descripcion,
         color: venta.color,
@@ -90,8 +90,7 @@ const borrarVenta = async(req, res) => {
         res.json({
             status: 'Venta borrada',
             ok: true,
-            nombre: nombre,
-            ventaRemito: ventaRemito
+            remitoVenta: remitoVenta
         });
 
 
