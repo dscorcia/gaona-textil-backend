@@ -7,7 +7,7 @@
  const {check} = require('express-validator');
  const {validarCampos} = require('../middlewares/validar-campos');
  const router = Router();
- const { crearVenta,borrarVenta, modificarVenta} = require('../controllers/venta')
+ const { crearVenta,borrarVenta, modificarVenta, obtenerVentas} = require('../controllers/venta')
 
 
 
@@ -50,9 +50,10 @@ borrarVenta);
      ],
     modificarVenta);
 
-// /*OBTENER CLIENTES */
 
-// router.get('/ventas', obtenerVentas);
+/*OBTENER VENTAS */
+
+ router.get('/ventas', obtenerVentas);
 
 
 module.exports = router;

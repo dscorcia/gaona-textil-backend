@@ -130,10 +130,34 @@ const modificarVenta = async(req, res) => {
 }
 
 
+/*OBTENER VENTAS*/
+
+const obtenerVentas = async (req, res = express.response)=>{
+    const ventas = await Venta.find()
+    .exec((err, ventas) => {
+
+
+        if (err) {
+            return res.status(400).json({
+                ok: false,
+                err
+            })
+        }
+    
+
+    res.json({
+        ok:true,
+        ventas
+    })
+
+
+ })
+}
 
 
 module.exports={
     crearVenta,
     borrarVenta,
-    modificarVenta
+    modificarVenta,
+    obtenerVentas
 }

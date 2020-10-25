@@ -115,6 +115,7 @@ const revalidarToken = async (req,res = express.response)=>{
     })
     
 }
+/* BORRAR USUARIO */
 
 const borrarUsuario = async(req, res) => {
 
@@ -163,15 +164,13 @@ const modificarUsuario = async(req, res) => {
     let name = req.params.name;
     
     //El _.pick valida que los argumentos a actualizar sean los que se encuentran en el []
-    let body = _.pick(req.body, ['name', 'nombre', 'apellido', 'dni', 'password','perfil']);
+    let body = _.pick(req.body, ['name', 'nombre', 'apellido', 'dni', 'perfil']);
     //console.log(body)
-    console.log(body.password);
+   
     //El {new:true} es para que el return sea el obj actualizado
     //El {runValidators:true} es para que se apliquen las validaciones configuradas en el modelo de datos
 
-         //Encriptar contraseña
-    const salt = bcrypt.genSaltSync();
-    body.password = bcrypt.hashSync(body.password,salt);
+ 
     
     await Usuario.updateOne({name}, body, { new: true, runValidators: true, context: 'query' }, (err, usuarioDB) => {
        
@@ -217,11 +216,53 @@ const modificarUsuario = async(req, res) => {
 }
 
 
+/* CAMBIAR CONTRASEÑA*/
+
+const cambiarPassword = async(req, res) => {
+
+    let name = req.params.name;
+    
+    
+    //El _.pick valida que los argumentos a actualizar sean los que se encuentran en el []
+    let body = _.pick(req.body, ['password']);
+    //console.log(body)
+    console.log(body.password);
+    //El {new:true} es para que el return sea el obj actualizado
+    //El {runValidators:true} es para que se apliquen las validaciones configuradas en el modelo de datos
+
+         //Encriptar contraseña
+    const salt = bcrypt.genSaltSync();
+    body.password = bcrypt.hashSync(body.password,salt);
+    console.log(body.password);
+    
+    await Usuario.updateOne({name}, body, { new: true, runValidators: true, context: 'query' }, (err, usuarioDB) => {
+       console.log(usuarioDB);
+        if (err) {
+            return res.status(400).json({
+                ok: false,
+                err
+            })
+        }
+        
+        res.json({
+            status: 'Usuario modificado',
+            ok: true,
+            usuario: usuarioDB
+        });
+    
+
+    });
+
+}
+
+
+
 module.exports ={
     crearUsuario,
     loginUsuario,
     renewToken: revalidarToken,
     borrarUsuario,
     modificarUsuario,
-    obtenerUsuarios
+    obtenerUsuarios,
+    cambiarPassword
 }
