@@ -54,12 +54,12 @@ try {
 const borrarCliente = async(req, res) => {
 
   
-    let idRegistro = req.params.idRegistro;
+    let _id = req.params._id;
     let nombre = req.body.nombre;
-    console.log(idRegistro);
+    console.log(_id);
     
 
-    await Cliente.deleteOne({idRegistro}, (err, clienteDeleted) => {
+    await Cliente.deleteOne({_id}, (err, clienteDeleted) => {
            
         if (err) {
             return res.status(400).json({
@@ -96,14 +96,14 @@ const modificarCliente = async(req, res) => {
 
     console.log(req.params);
 
-    let idRegistro = req.params.idRegistro;
+    let _id = req.params._id;
 
     //El _.pick valida que los argumentos a actualizar sean los que se encuentran en el []
     let body = _.pick(req.body, ['cuit', 'razonSocial', 'nombre', 'telefono']);
   
     //El {new:true} es para que el return sea el obj actualizado
     //El {runValidators:true} es para que se apliquen las validaciones configuradas en el modelo de datos
-    await Cliente.updateOne({idRegistro}, body, { new: true, runValidators: true, context: 'query' }, (err, clienteDB) => {
+    await Cliente.updateOne({_id}, body, { new: true, runValidators: true, context: 'query' }, (err, clienteDB) => {
         if (err) {
             return res.status(400).json({
                 ok: false,

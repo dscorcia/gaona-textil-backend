@@ -21,9 +21,9 @@ router.post(
 
 
     /*BORRAR  CLIENTE */
-router.delete('/delete/:idRegistro',[
+router.delete('/delete/:_id',[
    
-    check('idRegistro', 'El idRegistro es obligatorio').not().isEmpty(),
+    check('_id', 'El id es obligatorio').not().isEmpty(),
     validarCampos
 
 ],
@@ -32,9 +32,9 @@ borrarCliente);
 
 
 /* MODIFICACION DE CLIENTE*/
-router.put('/modify/:idRegistro',[
+router.put('/modify/:_id',[
    
-    check('idRegistro', 'El idRegistro es obligatorio').not().isEmpty(),
+    check('_id', 'El id es obligatorio').not().isEmpty(),
     validarCampos
 
     ],
