@@ -10,10 +10,10 @@ const {_} = require('underscore');
 /*CREACION DE CLIENTE */
 const crearCliente = async (req,res = express.response)=>{
 
-    const {idRegistro} = req.body
+    //const {idRegistro} = req.body
   
 try {
-    
+   /* 
     let cliente = await Cliente.findOne({idRegistro})
     if(cliente){
         return res.status(400).json({
@@ -21,6 +21,7 @@ try {
             msg:'Ya existe ese cliente'
         })
     }
+    */
 
      cliente =  new Cliente(req.body);
 
@@ -29,7 +30,7 @@ try {
      res.status(201).json({
         ok:true,
         msg:cliente.id,
-        idRegistro: cliente.idRegistro,
+        //idRegistro: cliente.id,
         cuit: cliente.cuit,
         razonSocial: cliente.razonSocial,
         nombre: cliente.nombre,
@@ -55,11 +56,11 @@ const borrarCliente = async(req, res) => {
   
     let idRegistro = req.params.idRegistro;
     let nombre = req.body.nombre;
+    console.log(idRegistro);
     
 
     await Cliente.deleteOne({idRegistro}, (err, clienteDeleted) => {
            
-
         if (err) {
             return res.status(400).json({
                 ok: false,
@@ -80,8 +81,8 @@ const borrarCliente = async(req, res) => {
         res.json({
             status: 'cliente borrado',
             ok: true,
-            nombre: nombre,
-            idRegistro: idRegistro
+            nombre: nombre
+            //idRegistro: idRegistro
         });
 
 
@@ -93,10 +94,12 @@ const borrarCliente = async(req, res) => {
 
 const modificarCliente = async(req, res) => {
 
+    console.log(req.params);
+
     let idRegistro = req.params.idRegistro;
 
     //El _.pick valida que los argumentos a actualizar sean los que se encuentran en el []
-    let body = _.pick(req.body, ['idRegistro', 'cuit', 'razonSocial', 'nombre', 'telefono']);
+    let body = _.pick(req.body, ['cuit', 'razonSocial', 'nombre', 'telefono']);
   
     //El {new:true} es para que el return sea el obj actualizado
     //El {runValidators:true} es para que se apliquen las validaciones configuradas en el modelo de datos
@@ -114,7 +117,6 @@ const modificarCliente = async(req, res) => {
             ok: true,
             cliente: clienteDB
         });
-    
 
     });
 

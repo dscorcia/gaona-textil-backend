@@ -13,7 +13,7 @@ const router = Router();
 router.post(
     '/new',
     [
-        check('idRegistro', 'El idRegistro es obligatorio').not().isEmpty(),
+        //check('idRegistro', 'El idRegistro es obligatorio').not().isEmpty(),
         check('nombre','El nombre es obligatorio').not().isEmpty(),
         validarCampos
     ],

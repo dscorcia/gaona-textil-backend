@@ -4,11 +4,11 @@ const Schema = mongoose.Schema;
 
 const ClienteSchema = new Schema({
 
-    idRegistro:{
+    /*idRegistro:{
         type:Number,
-        required:true,
-        unique:true
-    },
+        //required:true,
+        //unique:true
+    },*/
 
     razonSocial:{
         type:String,
