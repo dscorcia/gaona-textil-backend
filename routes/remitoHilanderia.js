@@ -19,6 +19,7 @@ router.post(
         check('descripcion','La descripción es obligatoria').not().isEmpty(),
         check('cantidad','La cantidad es obligatorio').not().isEmpty(),
         check('color','El color es  obligatorio').not().isEmpty(),
+        check('fecha','La fecha es obligatoria').not().isEmpty(),
         validarCampos
     ],
     crearRemitoHilanderia);
@@ -44,12 +45,13 @@ router.put('/modify/:remitoHilanderia',[
     check('descripcion','La descripción es obligatoria').not().isEmpty(),
     check('cantidad','La cantidad es obligatorio').not().isEmpty(),
     check('color','El color es  obligatorio').not().isEmpty(),
+    check('fecha','La fecha es obligatoria').not().isEmpty(),
     validarCampos
     ],
     modificarRemitoHilanderia);
 
 
     /*OBTENER REMITO HILANDERIA */
-router.get('/remitoHilanderia', obtenerRemitoHilanderia);
+router.get('/remitos', obtenerRemitoHilanderia);
 
 module.exports = router;

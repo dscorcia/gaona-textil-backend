@@ -33,6 +33,11 @@ const rHilanderiaSchema = new Schema({
     color:{
         type:String,
         require: true 
+    },
+
+    fecha:{
+        type:Date,
+        required:true
     }
     
 })

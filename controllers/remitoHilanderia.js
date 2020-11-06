@@ -10,11 +10,12 @@ const {_} = require('underscore');
 /*CREACION DE REMITO HILANDERIA */
 const crearRemitoHilanderia = async (req,res = express.response)=>{
 
-    const {remitoHilanderia} = req.body
+    let {remitoHilanderia} = req.body
+    console.log(remitoHilanderia);
   
 try {
-    let remitoHilanderia = await RemitoHiladneria.findOne({remitoHilanderia})
-    if(remitoHilanderia){
+    remito = await RemitoHiladneria.findOne({remitoHilanderia})
+    if(remito){
         return res.status(400).json({
             ok: false,
             msg:'Ya existe el remito de hilanderia'
@@ -22,18 +23,19 @@ try {
     }
    
 
-     remitoHilanderia =  new RemitoHiladneria(req.body);
+    remito =  new RemitoHiladneria(req.body);
 
-     await remitoHilanderia.save();
+     await remito.save();
 
      res.status(201).json({
         ok:true,
-        msg:remitoHilanderia.remitoHilanderia,
-        ordenNro: remitoHilanderia.ordenNro,
-        articulo: remitoHilanderia.articulo,
-        descripcion: remitoHilanderia.descripcion,
-        cantidad: remitoHilanderia.cantidad,
-        color: remitoHilanderia.color
+        msg:remito.remitoHilanderia,
+        ordenNro: remito.ordenNro,
+        articulo: remito.articulo,
+        descripcion: remito.descripcion,
+        cantidad: remito.cantidad,
+        color: remito.color,
+        fecha: remito.fecha
                 
     })
 
@@ -94,7 +96,7 @@ const modificarRemitoHilanderia = async(req, res) => {
     let remitoHilanderia = req.params.remitoHilanderia;
 
     //El _.pick valida que los argumentos a actualizar sean los que se encuentran en el []
-    let body = _.pick(req.body, ['remitoHilanderia', 'ordenNro', 'articulo', 'descripcion', 'cantidad', 'color']);
+    let body = _.pick(req.body, ['remitoHilanderia', 'ordenNro', 'articulo', 'descripcion', 'cantidad', 'color', 'fecha']);
   
     //El {new:true} es para que el return sea el obj actualizado
     //El {runValidators:true} es para que se apliquen las validaciones configuradas en el modelo de datos
@@ -121,7 +123,7 @@ const modificarRemitoHilanderia = async(req, res) => {
 /*OBTENER REMITO DE HILANDERIA */
 
 const obtenerRemitoHilanderia = async (req, res = express.response)=>{
-    const remitosHilanderia = await Cliente.find({})
+    const remitosHilanderia = await RemitoHiladneria.find({})
     .exec((err, remitosHilanderia) => {
 
 
