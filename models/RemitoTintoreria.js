@@ -2,18 +2,22 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const rHilanderiaSchema = new Schema({
+const rTintoreriaSchema = new Schema({
 
+
+    nroRemitoTintoreria:{
+        type:Number,
+        required:true,
+    },
 
     remitoHilanderia:{
         type:Number,
         require: true
     },
 
-    ordenNro:{
-        type:Number,
-        required:true
-        
+    remitoTintoreriaAsociados:{
+        type:Array,
+        required:false
     },
 
     articulo:{
@@ -40,11 +44,8 @@ const rHilanderiaSchema = new Schema({
         required:true
     },
 
-    nroFactura:{
-        type:Number,
-        required:false
-    }
+    
     
 })
 
-module.exports = mongoose.model('RemitoHilanderia', rHilanderiaSchema);
+module.exports = mongoose.model('RemitoTintoreria', rTintoreriaSchema);

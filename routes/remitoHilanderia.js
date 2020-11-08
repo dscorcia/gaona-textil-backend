@@ -1,4 +1,4 @@
-/*   RUTAS DE USUARIOS /CLIENTE
+/*   RUTAS DE REMITO HILANDERIA
     HOST + /api/remitoHilanderia  */
 
 
@@ -25,7 +25,7 @@ router.post(
     crearRemitoHilanderia);
 
 
-    /*BORRAR  CLIENTE */
+    /*BORRAR  REMITO HILANDERIA */
 router.delete('/delete/:remitoHilanderia',[
    
     check('remitoHilanderia','El número de remito es obligatorio.').not().isEmpty(),
@@ -36,7 +36,7 @@ borrarRemitoHilanderia);
 
 
 
-    /* MODIFICACION DE USUARIO*/
+    /* MODIFICACION DE REMITO HILANDERIA*/
 router.put('/modify/:remitoHilanderia',[
 
     check('remitoHilanderia','El número de remito es obligatorio.').not().isEmpty(),
