@@ -16,12 +16,12 @@ router.post(
         check('fecha','La fecha es obligatoria').not().isEmpty(),
         check('cliente','El cliente es obligatorio').not().isEmpty(),
         check('idArticulo','El artículo es obligatorio').not().isEmpty(),
-        check('descripcion','La descripción es obligatorio').not().isEmpty(),
-        check('color','El color es obligatorio').not().isEmpty(),
-        check('cantidad','La cantidad es obligatorio').not().isEmpty(),
-        check('precioKg','El precio por kilo es obligatorio').not().isEmpty(),
-        check('subtotalArt','El subtotal es obligatorio').not().isEmpty(),
-        check('total','El total es obligatorio').not().isEmpty(),
+        // check('descripcion','La descripción es obligatorio').not().isEmpty(),
+        // check('color','El color es obligatorio').not().isEmpty(),
+        // check('cantidad','La cantidad es obligatorio').not().isEmpty(),
+        // check('precioKg','El precio por kilo es obligatorio').not().isEmpty(),
+        // check('subtotalArt','El subtotal es obligatorio').not().isEmpty(),
+        // check('total','El total es obligatorio').not().isEmpty(),
         validarCampos
     ],
     crearVenta);

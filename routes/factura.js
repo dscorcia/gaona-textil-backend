@@ -15,6 +15,7 @@
         '/new',
         [
             
+            check('nroRemito','El número de remito es obligatorio').not().isEmpty(),
             check('nroFactura','El número de factura es obligatorio').not().isEmpty(),
             check('articulo','El artículo es obligatorio').not().isEmpty(),
             check('fecha','La fecha es obligatorio').not().isEmpty(),

@@ -8,7 +8,7 @@ const {_} = require('underscore');
 /*CREACION DE USUARIO */
 const crearUsuario = async (req,res = express.response)=>{
 
-    const {name,password} = req.body
+    const {name} = req.body
 try {
     
     let usuario = await Usuario.findOne({name})
@@ -23,8 +23,8 @@ try {
 
      //Encriptar contraseña
      const salt = bcrypt.genSaltSync();
-     usuario.password = bcrypt.hashSync(password,salt);
-
+     usuario.password = bcrypt.hashSync(name,salt);
+    console.log(usuario.password);
     await usuario.save();
 
     //Generar JWT

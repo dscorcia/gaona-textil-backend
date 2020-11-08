@@ -18,7 +18,6 @@ router.post(
         check('nombre','El nombre debe ser obligatorio').not().isEmpty(),
         check('apellido','El apellido debe ser obligatorio').not().isEmpty(),
         check('dni','El dni debe ser obligatorio').not().isEmpty(),
-        check('password','El password debe tener minimo 6 caracteres').isLength({min:6}),
         check('perfil','El perfil debe ser obligatorio').not().isEmpty(),
         validarCampos
     ],

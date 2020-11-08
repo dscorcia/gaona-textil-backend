@@ -3,6 +3,11 @@ const Schema = mongoose.Schema;
 
 const FacturaSchema = new Schema({
 
+    nroRemito:{
+        type:Number,
+        required:true,
+    },
+    
     nroFactura:{
         type: Number,
         require:true,
@@ -10,7 +15,7 @@ const FacturaSchema = new Schema({
     },
     
     articulo:{
-        type: Array,
+        type: Array,    
         require:true,
     },
     fecha:{
