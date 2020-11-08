@@ -1,4 +1,5 @@
  const mongoose = require('mongoose');
+const { object } = require('underscore');
  const Schema = mongoose.Schema;
 
  const VentasSchema = new Schema({
@@ -19,35 +20,15 @@
         require:true,
     },
     
-    idArticulo:{
-        type:Number,
-        require:true
-    },
+    Articulos:[{
+       idArticulo:{type:Number, require:true},
+       descripcion:{type:String, require:true},
+       color:{type:String, require:true},
+       cantidad:{type:Number, require:true},
+       precioKg:{type:Number, require:true},
+       subtotalArt:{type:Number, require:true},
 
-    descripcion:{
-        type:String,
-        require:true
-    },
-    
-    color:{
-        type:String,
-        require:true
-    },
-
-    cantidad:{
-        type:Number,
-        require:true
-    },
-
-    precioKg:{
-        type:Number,
-        require:true
-    },
-
-    subtotalArt:{
-        type:Number,
-        require:true
-    },
+    }],
 
     total:{
         type:Number,
