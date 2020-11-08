@@ -23,7 +23,7 @@ app.use('/api/auth', require('./routes/auth'));
 app.use('/api/cliente', require('./routes/cliente'));
 app.use('/api/venta',require('./routes/venta'));
 app.use('/api/factura',require('./routes/factura'));
-// app.use('/api/remitoHilanderia', require('./routes/remitoHilanderia'));
+app.use('/api/remitoHilanderia', require('./routes/remitoHilanderia'));
 
 
 //Escuchar peticiones
