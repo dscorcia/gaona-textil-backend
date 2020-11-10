@@ -171,10 +171,38 @@ const obtenerVentas = async (req, res = express.response)=>{
  })
 }
 
+/*OBTENER UNA VENTA*/
+
+const obtenerVentaUnica = async (req, res = express.response)=>{
+
+    let remitoVenta = req.params.remitoVenta;
+
+    const ventas = await Venta.findOne({remitoVenta})
+    .exec((err, ventas) => {
+
+
+        if (err) {
+            return res.status(400).json({
+                ok: false,
+                err
+            })
+        }
+    
+
+    res.json({
+        ok:true,
+        ventas
+    })
+
+
+ })
+}
+
 
 module.exports={
     crearVenta,
     borrarVenta,
     modificarVenta,
-    obtenerVentas
+    obtenerVentas,
+    obtenerVentaUnica
 }
