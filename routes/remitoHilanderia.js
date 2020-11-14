@@ -14,11 +14,11 @@ router.post(
     '/new',
     [
         check('remitoHilanderia','El número de remito es obligatorio.').not().isEmpty(),
-        check('ordenNro','El número de orden es obligatorio.').not().isEmpty(),
-        check('articulo','El articulo es obligatorio').not().isEmpty(),
-        check('descripcion','La descripción es obligatoria').not().isEmpty(),
-        check('cantidad','La cantidad es obligatorio').not().isEmpty(),
-        check('color','El color es  obligatorio').not().isEmpty(),
+        check('Articulos.idArticulo','El articulo es obligatorio').not().isEmpty(),
+        check('Articulos.descripcion','La descripción es obligatoria').not().isEmpty(),
+        check('Articulos.cantidadKgs','La cantidad es obligatorio').not().isEmpty(),
+        check('Articulos.cantidadPiezas','La cantidad es obligatorio').not().isEmpty(),
+        check('Articulos.color','El color es  obligatorio').not().isEmpty(),
         check('fecha','La fecha es obligatoria').not().isEmpty(),
         validarCampos
     ],
@@ -40,11 +40,11 @@ borrarRemitoHilanderia);
 router.put('/modify/:remitoHilanderia',[
 
     check('remitoHilanderia','El número de remito es obligatorio.').not().isEmpty(),
-    check('ordenNro','El número de orden es obligatorio.').not().isEmpty(),
-    check('articulo','El articulo es obligatorio').not().isEmpty(),
-    check('descripcion','La descripción es obligatoria').not().isEmpty(),
-    check('cantidad','La cantidad es obligatorio').not().isEmpty(),
-    check('color','El color es  obligatorio').not().isEmpty(),
+    check('Articulos.idArticulo','El articulo es obligatorio').not().isEmpty(),
+    check('Articulos.descripcion','La descripción es obligatoria').not().isEmpty(),
+    check('Articulos.cantidadKgs','La cantidad es obligatorio').not().isEmpty(),
+    check('Articulos.cantidadPiezas','La cantidad es obligatorio').not().isEmpty(),
+    check('Articulos.color','El color es  obligatorio').not().isEmpty(),
     check('fecha','La fecha es obligatoria').not().isEmpty(),
     validarCampos
     ],

@@ -28,28 +28,14 @@ try {
     console.log('LOG ANTES DEL SAVE de la venta body ' + Venta(req.body))
      venta =  new Venta(req.body);
      console.log('LOG DPS DEL SAVE de la venta ' + venta);
-        let longitudArticulos = req.body.Articulos.length;
-        // for(let i=0; i<longitudArticulos; i++){
-        //     venta = new Venta(
-        //         req.body.remitoVenta,
-        //         req.body.fecha,
-        //         req.body.cliente,
-        //         req.body.Articulos[i].idArticulo,
-        //         req.body.Articulos[i].descripcion,
-        //         req.body.Articulos[i].color,
-        //         req.body.Articulos[i].cantidad,
-        //         req.body.Articulos[i].precioKg,
-        //         req.body.Articulos[i].subtotalArt
-
-        //     )
-        // }
+       
         
         console.log(venta);
 
      await venta.save();
 
      res.status(201).json({
-        ok:true,
+        ok:true,    
         msg:"Venta cargada",
         remitoVenta: venta.remitoVenta,
         fecha: venta.fecha,

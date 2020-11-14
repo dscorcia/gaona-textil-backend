@@ -30,11 +30,11 @@ try {
      res.status(201).json({
         ok:true,
         msg:remito.remitoHilanderia,
-        ordenNro: remito.ordenNro,
-        articulo: remito.articulo,
-        descripcion: remito.descripcion,
-        cantidad: remito.cantidad,
-        color: remito.color,
+        articulo: remito.Articulos.idArticulo,
+        descripcion: remito.Articulos.descripcion,
+        cantidadKgs: remito.Articulos.cantidadKgs,
+        cantidadPiezas: remito.Articulos.cantidadPiezas,
+        color: remito.Articulos.color,
         fecha: remito.fecha,
         nroFactura: remito.nroFactura
                 
@@ -97,7 +97,7 @@ const modificarRemitoHilanderia = async(req, res) => {
     let remitoHilanderia = req.params.remitoHilanderia;
 
     //El _.pick valida que los argumentos a actualizar sean los que se encuentran en el []
-    let body = _.pick(req.body, ['remitoHilanderia', 'ordenNro', 'articulo', 'descripcion', 'cantidad', 'color', 'fecha','nroFactura']);
+    let body = _.pick(req.body, ['remitoHilanderia', 'idArticulo', 'descripcion', 'cantidadKgs','cantidadPiezas', 'color', 'fecha','nroFactura']);
   
     //El {new:true} es para que el return sea el obj actualizado
     //El {runValidators:true} es para que se apliquen las validaciones configuradas en el modelo de datos
