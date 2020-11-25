@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const rTintoreriaSchema = new Schema({
 
-/*Agregar nro de partida */
+
     nroRemitoTintoreria:{
         type:Number,
         required:true,
@@ -13,7 +13,7 @@ const rTintoreriaSchema = new Schema({
         type:Number,
         required:true
     },
-    /*puede tener muchos remitos de tejeduria*/
+ 
     remitoHilanderia:{
         type:Array,
         require: true

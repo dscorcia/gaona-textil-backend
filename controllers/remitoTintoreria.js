@@ -14,7 +14,10 @@ const crearRemitoTintoreria = async (req,res = express.response)=>{
 
     let {nroRemitoTintoreria, remitoHilanderia} = req.body
     console.log(nroRemitoTintoreria);
-    const remitoH = await RemitoHilanderia.find({remitoH:remitoH})
+    const remitoH = await RemitoHilanderia.find({remitoHilanderia})
+
+    console.log(remitoH);
+    // const clienteVenta = await Cliente.find({nombre:cliente})
   
 try {
     remito = await RemitoTintoreria.findOne({nroRemitoTintoreria})
@@ -34,7 +37,7 @@ try {
         ok:true,
         msg:remito.nroRemitoTintoreria,
         nroPartiada: remito.nroPartiada,
-        remitoHilanderia: remitoHilanderia[0].remitoH,
+        remitoHilanderia: remitoHilanderia[0].remitoHilanderia,
         articulo: remito.Articulos.idArticulo,
         descripcion: remito.Articulos.descripcion,
         cantidadKgs: remito.Articulos.cantidadKgs,
@@ -102,7 +105,7 @@ const modificarRemitoTintoreria = async(req, res) => {
     let remitoTintoreria = req.params.remitoTintoreria;
 
     //El _.pick valida que los argumentos a actualizar sean los que se encuentran en el []
-    let body = _.pick(req.body, ['nroRemitoTintoreria', 'nroPArtida', 'remitoHilanderia', 'idArticulo','descripcion', 'cantidadKgs', 'cantidadKgsRib','cantidadPiezas','cantidadPiezasRib', 'color', 'fecha']);
+    let body = _.pick(req.body, ['nroRemitoTintoreria', 'nroPartida', 'remitoHilanderia', 'Articulos', 'fecha']);
   
     //El {new:true} es para que el return sea el obj actualizado
     //El {runValidators:true} es para que se apliquen las validaciones configuradas en el modelo de datos
@@ -151,10 +154,39 @@ const obtenerRemitoTintoreria = async (req, res = express.response)=>{
 }
 
 
+
+/*OBTENER UN UNICO REMITO*/
+
+const obtenerRemitoUnicoTintoreria = async (req, res = express.response)=>{
+
+    let remitoTintoreria = req.params.remitoTintoreria;
+
+    const remitosTintoreria = await RemitoTintoreria.findOne({remitoTintoreria})
+    .exec((err, remitoTintoreria) => {
+
+
+        if (err) {
+            return res.status(400).json({
+                ok: false,
+                err
+            })
+        }
+    
+
+    res.json({
+        ok:true,
+        remitoTintoreria
+    })
+
+
+ })
+}
+
   
 module.exports={
     crearRemitoTintoreria,
     borrarRemitoTintoreria,
     modificarRemitoTintoreria,
-    obtenerRemitoTintoreria
+    obtenerRemitoTintoreria,
+    obtenerRemitoUnicoTintoreria
 }

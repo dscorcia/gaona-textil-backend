@@ -52,7 +52,7 @@ borrarVenta);
  router.get('/ventas', obtenerVentas);
 
 
-/*OBTENER VENTAS */
+/*OBTENER UNICA VENTA */
 
  router.get('/ventaUnica/:remitoVenta', obtenerVentaUnica);
 

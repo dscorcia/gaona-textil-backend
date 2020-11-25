@@ -101,15 +101,17 @@ const borrarVenta = async(req, res) => {
 
 
 
-/*MODIFICAR CLIENTE */
+/*MODIFICAR VENTA */
 
 const modificarVenta = async(req, res) => {
 
     let remitoVenta = req.params.remitoVenta;
+    console.log(remitoVenta);
+    console.log("Antes del pick" + req.body);
 
     //El _.pick valida que los argumentos a actualizar sean los que se encuentran en el []
-    let body = _.pick(req.body, ['remitoVenta', 'fecha', 'cliente', 'idArticulo', 'descripcion','color','cantidad','precioKg','subtotalArt','total']);
-  
+    let body = _.pick(req.body, ['remitoVenta', 'fecha', 'cliente', 'Articulos']);
+    console.log("Despues del pick" + req.body);
     //El {new:true} es para que el return sea el obj actualizado
     //El {runValidators:true} es para que se apliquen las validaciones configuradas en el modelo de datos
     await Venta.updateOne({remitoVenta}, body, { new: true, runValidators: true, context: 'query' }, (err, ventaDB) => {
