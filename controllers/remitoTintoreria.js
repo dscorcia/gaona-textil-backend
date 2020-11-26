@@ -16,7 +16,7 @@ const crearRemitoTintoreria = async (req,res = express.response)=>{
     console.log(nroRemitoTintoreria);
     const remitoH = await RemitoHilanderia.find({remitoHilanderia})
 
-    console.log(remitoH);
+  
     // const clienteVenta = await Cliente.find({nombre:cliente})
   
 try {
@@ -103,13 +103,19 @@ const borrarRemitoTintoreria = async(req, res) => {
 const modificarRemitoTintoreria = async(req, res) => {
 
     let remitoTintoreria = req.params.remitoTintoreria;
+    console.log(typeof(remitoTintoreria));
+
 
     //El _.pick valida que los argumentos a actualizar sean los que se encuentran en el []
     let body = _.pick(req.body, ['nroRemitoTintoreria', 'nroPartida', 'remitoHilanderia', 'Articulos', 'fecha']);
   
+    console.log(body);
+
     //El {new:true} es para que el return sea el obj actualizado
     //El {runValidators:true} es para que se apliquen las validaciones configuradas en el modelo de datos
     await RemitoTintoreria.updateOne({remitoTintoreria}, body, { new: true, runValidators: true, context: 'query' }, (err, remitoTintoreriaDB) => {
+      console.log(typeof(remitoTintoreria));
+      console.log({remitoTintoreria});
         if (err) {
             return res.status(400).json({
                 ok: false,

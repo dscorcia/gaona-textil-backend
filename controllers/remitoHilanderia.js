@@ -11,11 +11,11 @@ const {_} = require('underscore');
 const crearRemitoHilanderia = async (req,res = express.response)=>{
 
     let {remitoHilanderia} = req.body
-    console.log(remitoHilanderia);
+  
   
 try {
     remito = await RemitoHilanderia.findOne({remitoHilanderia:remitoHilanderia})
-    console.log("este es el remito hilanderia " + remito);
+  
     if(remito){
         return res.status(400).json({
             ok: false,

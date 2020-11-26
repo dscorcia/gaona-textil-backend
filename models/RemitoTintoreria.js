@@ -21,7 +21,7 @@ const rTintoreriaSchema = new Schema({
 
 
     Articulos:[{
-        idArticulo:{type:String,require: true},
+        idArticulo:{type:Number,require: true},
         descripcion:{type:String,require: true},
         cantidadKgs:{type:Number,require: true},
         cantidadKgsRib:{type:Number,require: true},
