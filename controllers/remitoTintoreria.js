@@ -63,11 +63,11 @@ try {
 /*BORRAR REMITO TINTORERIA */
 const borrarRemitoTintoreria = async(req, res) => {
 
-  
-    let remitoTintoreria = req.params.remitoTintoreria;
-     
+   
+    let nroRemitoTintoreria = req.params.remitoTintoreria;
+   
 
-    await RemitoTintoreria.deleteOne({remitoTintoreria}, (err, remitoTintoreriaDeleted) => {
+    await RemitoTintoreria.deleteOne({nroRemitoTintoreria}, (err, remitoTintoreriaDeleted) => {
            
         if (err) {
             return res.status(400).json({
@@ -89,7 +89,7 @@ const borrarRemitoTintoreria = async(req, res) => {
         res.json({
             status: 'Remito de Tintoreria borrado',
             ok: true,
-            remitoTintoreria: remitoTintoreria
+            nroRemitoTintoreria: nroRemitoTintoreria
             
         });
 
@@ -102,20 +102,19 @@ const borrarRemitoTintoreria = async(req, res) => {
 
 const modificarRemitoTintoreria = async(req, res) => {
 
-    let remitoTintoreria = req.params.remitoTintoreria;
-    console.log(typeof(remitoTintoreria));
+    let nroRemitoTintoreria = req.params.remitoTintoreria;
+   
 
 
     //El _.pick valida que los argumentos a actualizar sean los que se encuentran en el []
     let body = _.pick(req.body, ['nroRemitoTintoreria', 'nroPartida', 'remitoHilanderia', 'Articulos', 'fecha']);
   
-    console.log(body);
+
 
     //El {new:true} es para que el return sea el obj actualizado
     //El {runValidators:true} es para que se apliquen las validaciones configuradas en el modelo de datos
-    await RemitoTintoreria.updateOne({remitoTintoreria}, body, { new: true, runValidators: true, context: 'query' }, (err, remitoTintoreriaDB) => {
-      console.log(typeof(remitoTintoreria));
-      console.log({remitoTintoreria});
+    await RemitoTintoreria.updateOne({nroRemitoTintoreria}, body, { new: true, runValidators: true, context: 'query' }, (err, remitoTintoreriaDB) => {
+ 
         if (err) {
             return res.status(400).json({
                 ok: false,
@@ -127,7 +126,7 @@ const modificarRemitoTintoreria = async(req, res) => {
         res.json({
             status: 'Remito de Tintoreria modificado',
             ok: true,
-            remitoTintoreria: remitoTintoreriaDB
+            nroRemitoTintoreria: remitoTintoreriaDB
         });
 
     });
@@ -138,7 +137,36 @@ const modificarRemitoTintoreria = async(req, res) => {
 /*OBTENER REMITO DE TINTORERIA */
 
 const obtenerRemitoTintoreria = async (req, res = express.response)=>{
-    const remitosTintoreria = await RemitoTintoreria.find({})
+    const nroRemitoTintoreria = await RemitoTintoreria.find({})
+    .exec((err, nroRemitoTintoreria) => {
+
+
+        if (err) {
+            return res.status(400).json({
+                ok: false,
+                err
+            })
+        }
+    
+
+    res.json({
+        ok:true,
+        nroRemitoTintoreria
+    })
+
+
+ })
+}
+
+
+
+/*OBTENER UN UNICO REMITO*/
+
+const obtenerRemitoUnicoTintoreria = async (req, res = express.response)=>{
+
+    let nroRemitoTintoreria = req.params.remitoTintoreria;
+
+    const remitosTintoreria = await RemitoTintoreria.findOne({nroRemitoTintoreria})
     .exec((err, remitosTintoreria) => {
 
 
@@ -153,35 +181,6 @@ const obtenerRemitoTintoreria = async (req, res = express.response)=>{
     res.json({
         ok:true,
         remitosTintoreria
-    })
-
-
- })
-}
-
-
-
-/*OBTENER UN UNICO REMITO*/
-
-const obtenerRemitoUnicoTintoreria = async (req, res = express.response)=>{
-
-    let remitoTintoreria = req.params.remitoTintoreria;
-
-    const remitosTintoreria = await RemitoTintoreria.findOne({remitoTintoreria})
-    .exec((err, remitoTintoreria) => {
-
-
-        if (err) {
-            return res.status(400).json({
-                ok: false,
-                err
-            })
-        }
-    
-
-    res.json({
-        ok:true,
-        remitoTintoreria
     })
 
 

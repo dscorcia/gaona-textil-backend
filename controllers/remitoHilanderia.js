@@ -56,7 +56,7 @@ try {
 /*BORRAR REMITO HILANDERIA */
 const borrarRemitoHilanderia = async(req, res) => {
 
-  
+    console.log(req);
     let remitoHilanderia = req.params.remitoHilanderia;
     console.log(remitoHilanderia);
      
