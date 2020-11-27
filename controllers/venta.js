@@ -25,9 +25,9 @@ try {
         })
     }
    
-    console.log('LOG ANTES DEL SAVE de la venta body ' + Venta(req.body))
+   // console.log('LOG ANTES DEL SAVE de la venta body ' + Venta(req.body))
      venta =  new Venta(req.body);
-     console.log('LOG DPS DEL SAVE de la venta ' + venta);
+     //console.log('LOG DPS DEL SAVE de la venta ' + venta);
         let longitudArticulos = req.body.Articulos.length;
         // for(let i=0; i<longitudArticulos; i++){
         //     venta = new Venta(
@@ -44,7 +44,6 @@ try {
         //     )
         // }
         
-        console.log(venta);
 
      await venta.save();
 
@@ -122,7 +121,7 @@ const modificarVenta = async(req, res) => {
     let remitoVenta = req.params.remitoVenta;
 
     //El _.pick valida que los argumentos a actualizar sean los que se encuentran en el []
-    let body = _.pick(req.body, ['remitoVenta', 'fecha', 'cliente', 'idArticulo', 'descripcion','color','cantidad','precioKg','subtotalArt','total']);
+    let body = _.pick(req.body, ['', 'fecha', 'cliente', 'idArtremitoVentaiculo', 'descripcion','color','cantidad','precioKg','subtotalArt','total']);
   
     //El {new:true} es para que el return sea el obj actualizado
     //El {runValidators:true} es para que se apliquen las validaciones configuradas en el modelo de datos
