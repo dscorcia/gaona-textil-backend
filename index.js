@@ -24,8 +24,10 @@ app.use('/api/cliente', require('./routes/cliente'));
 app.use('/api/venta',require('./routes/venta'));
 app.use('/api/factura',require('./routes/factura'));
 app.use('/api/remitoHilanderia', require('./routes/remitoHilanderia'));
-//app.use('/api/remitoTintoreria', require('./routes/remitoTintoreria'));
+app.use('/api/remitoTintoreria', require('./routes/remitoTintoreria'));
 
 
 //Escuchar peticiones
 app.listen(process.env.PORT, ()=>{console.log(`Servidor corriendo en puerto ${process.env.PORT}`)});
+
+//

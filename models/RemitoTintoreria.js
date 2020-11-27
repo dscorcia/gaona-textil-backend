@@ -9,42 +9,32 @@ const rTintoreriaSchema = new Schema({
         type:Number,
         required:true,
     },
-
-    remitoHilanderia:{
+    nroPartida:{
         type:Number,
+        required:true
+    },
+ 
+    remitoHilanderia:{
+        type:Array,
         require: true
     },
 
-    remitoTintoreriaAsociados:{
-        type:Array,
-        required:false
-    },
 
-    articulo:{
-        type:String,
-        require: true,
-    },
-    descripcion:{
-        type:String,
-        require: true,
-    },
-
-    cantidad:{
-        type:Number,
-        require: true 
-    },
-
-    color:{
-        type:String,
-        require: true 
-    },
-
-    fecha:{
-        type:Date,
-        required:true
-    },
-
-    
+    Articulos:[{
+        idArticulo:{type:Number,require: true},
+        descripcion:{type:String,require: true},
+        cantidadKgs:{type:Number,require: true},
+        cantidadKgsRib:{type:Number,require: true},
+        cantidadPiezas:{type:Number,require: true},
+        cantidadPiezasRib:{type:Number,require: true},
+        color:{type:String,require: true}
+    }], 
+ 
+     fecha:{
+         type:Date,
+         required:true
+     },
+  
     
 })
 

@@ -1,7 +1,7 @@
 
 const express = require ('express');
 const {validationResult} = require ('express-validator');
-const RemitoHiladneria  = require('../models/RemitoHilanderia')
+const RemitoHilanderia  = require('../models/RemitoHilanderia')
 const {_} = require('underscore');
 
 
@@ -11,10 +11,11 @@ const {_} = require('underscore');
 const crearRemitoHilanderia = async (req,res = express.response)=>{
 
     let {remitoHilanderia} = req.body
-    console.log(remitoHilanderia);
+  
   
 try {
-    remito = await RemitoHiladneria.findOne({remitoHilanderia})
+    remito = await RemitoHilanderia.findOne({remitoHilanderia:remitoHilanderia})
+  
     if(remito){
         return res.status(400).json({
             ok: false,
@@ -23,18 +24,18 @@ try {
     }
    
 
-    remito =  new RemitoHiladneria(req.body);
+    remito =  new RemitoHilanderia(req.body);
 
      await remito.save();
 
      res.status(201).json({
         ok:true,
         msg:remito.remitoHilanderia,
-        ordenNro: remito.ordenNro,
-        articulo: remito.articulo,
-        descripcion: remito.descripcion,
-        cantidad: remito.cantidad,
-        color: remito.color,
+        articulo: remito.Articulos.idArticulo,
+        descripcion: remito.Articulos.descripcion,
+        cantidadKgs: remito.Articulos.cantidadKgs,
+        cantidadPiezas: remito.Articulos.cantidadPiezas,
+        color: remito.Articulos.color,
         fecha: remito.fecha,
         nroFactura: remito.nroFactura
                 
@@ -57,9 +58,10 @@ const borrarRemitoHilanderia = async(req, res) => {
 
   
     let remitoHilanderia = req.params.remitoHilanderia;
+    console.log(remitoHilanderia);
      
 
-    await RemitoHiladneria.deleteOne({remitoHilanderia}, (err, remitoHilanderiaDeleted) => {
+    await RemitoHilanderia.deleteOne({remitoHilanderia}, (err, remitoHilanderiaDeleted) => {
            
         if (err) {
             return res.status(400).json({
@@ -97,11 +99,11 @@ const modificarRemitoHilanderia = async(req, res) => {
     let remitoHilanderia = req.params.remitoHilanderia;
 
     //El _.pick valida que los argumentos a actualizar sean los que se encuentran en el []
-    let body = _.pick(req.body, ['remitoHilanderia', 'ordenNro', 'articulo', 'descripcion', 'cantidad', 'color', 'fecha','nroFactura']);
+    let body = _.pick(req.body, ['remitoHilanderia', 'Articulos', 'fecha','nroFactura']);
   
     //El {new:true} es para que el return sea el obj actualizado
     //El {runValidators:true} es para que se apliquen las validaciones configuradas en el modelo de datos
-    await RemitoHiladneria.updateOne({remitoHilanderia}, body, { new: true, runValidators: true, context: 'query' }, (err, remitoHilanderiaDB) => {
+    await RemitoHilanderia.updateOne({remitoHilanderia}, body, { new: true, runValidators: true, context: 'query' }, (err, remitoHilanderiaDB) => {
         if (err) {
             return res.status(400).json({
                 ok: false,
@@ -121,10 +123,38 @@ const modificarRemitoHilanderia = async(req, res) => {
 }
 
 
-/*OBTENER REMITO DE HILANDERIA */
+/*OBTENER REMITOS DE HILANDERIA */
 
 const obtenerRemitoHilanderia = async (req, res = express.response)=>{
-    const remitosHilanderia = await RemitoHiladneria.find({})
+    const remitosHilanderia = await RemitoHilanderia.find({})
+    .exec((err, remitosHilanderia) => {
+
+
+        if (err) {
+            return res.status(400).json({
+                ok: false,
+                err
+            })
+        }
+    
+
+    res.json({
+        ok:true,
+        remitosHilanderia
+    })
+
+
+ })
+}
+
+
+/*OBTENER UN UNICO REMITO*/
+
+const obtenerRemitoUnico = async (req, res = express.response)=>{
+
+    let remitoHilanderia = req.params.remitoHilanderia;
+
+    const remitosHilanderia = await RemitoHilanderia.findOne({remitoHilanderia})
     .exec((err, remitosHilanderia) => {
 
 
@@ -151,5 +181,6 @@ module.exports={
     crearRemitoHilanderia,
     borrarRemitoHilanderia,
     modificarRemitoHilanderia,
-    obtenerRemitoHilanderia
+    obtenerRemitoHilanderia,
+    obtenerRemitoUnico
 }

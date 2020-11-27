@@ -10,30 +10,14 @@ const rHilanderiaSchema = new Schema({
         require: true
     },
 
-    ordenNro:{
-        type:Number,
-        required:true
-        
-    },
-
-    articulo:{
-        type:String,
-        require: true,
-    },
-    descripcion:{
-        type:String,
-        require: true,
-    },
-
-    cantidad:{
-        type:Number,
-        require: true 
-    },
-
-    color:{
-        type:String,
-        require: true 
-    },
+  
+   Articulos:[{
+       idArticulo:{type:String,require: true},
+       descripcion:{type:String,require: true},
+       cantidadKgs:{type:Number,require: true},
+       cantidadPiezas:{type:Number,require: true},
+       color:{type:String,require: true}
+   }], 
 
     fecha:{
         type:Date,

@@ -7,7 +7,7 @@ const {_} = require('underscore');
 
 
 
-/*CREACION DE CLIENTE */
+/*CREACION DE FACTURA */
 const crearFactura = async (req,res = express.response)=>{
 
     const {nroFactura} = req.body
@@ -49,7 +49,7 @@ try {
 
 
 
-/*BORRAR CLIENTE */
+/*BORRAR FACTURA */
 const borrarFactura = async(req, res) => {
 
   

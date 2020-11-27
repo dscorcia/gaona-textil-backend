@@ -27,28 +27,14 @@ try {
    
    // console.log('LOG ANTES DEL SAVE de la venta body ' + Venta(req.body))
      venta =  new Venta(req.body);
-     //console.log('LOG DPS DEL SAVE de la venta ' + venta);
-        let longitudArticulos = req.body.Articulos.length;
-        // for(let i=0; i<longitudArticulos; i++){
-        //     venta = new Venta(
-        //         req.body.remitoVenta,
-        //         req.body.fecha,
-        //         req.body.cliente,
-        //         req.body.Articulos[i].idArticulo,
-        //         req.body.Articulos[i].descripcion,
-        //         req.body.Articulos[i].color,
-        //         req.body.Articulos[i].cantidad,
-        //         req.body.Articulos[i].precioKg,
-        //         req.body.Articulos[i].subtotalArt
-
-        //     )
-        // }
+     console.log('LOG DPS DEL SAVE de la venta ' + venta);
+       
         
 
      await venta.save();
 
      res.status(201).json({
-        ok:true,
+        ok:true,    
         msg:"Venta cargada",
         remitoVenta: venta.remitoVenta,
         fecha: venta.fecha,
@@ -114,15 +100,17 @@ const borrarVenta = async(req, res) => {
 
 
 
-/*MODIFICAR CLIENTE */
+/*MODIFICAR VENTA */
 
 const modificarVenta = async(req, res) => {
 
     let remitoVenta = req.params.remitoVenta;
+    console.log(remitoVenta);
+    console.log("Antes del pick" + req.body);
 
     //El _.pick valida que los argumentos a actualizar sean los que se encuentran en el []
-    let body = _.pick(req.body, ['', 'fecha', 'cliente', 'idArtremitoVentaiculo', 'descripcion','color','cantidad','precioKg','subtotalArt','total']);
-  
+    let body = _.pick(req.body, ['remitoVenta', 'fecha', 'cliente', 'Articulos']);
+    console.log("Despues del pick" + req.body);
     //El {new:true} es para que el return sea el obj actualizado
     //El {runValidators:true} es para que se apliquen las validaciones configuradas en el modelo de datos
     await Venta.updateOne({remitoVenta}, body, { new: true, runValidators: true, context: 'query' }, (err, ventaDB) => {
@@ -170,10 +158,38 @@ const obtenerVentas = async (req, res = express.response)=>{
  })
 }
 
+/*OBTENER UNA VENTA*/
+
+const obtenerVentaUnica = async (req, res = express.response)=>{
+
+    let remitoVenta = req.params.remitoVenta;
+
+    const ventas = await Venta.findOne({remitoVenta})
+    .exec((err, ventas) => {
+
+
+        if (err) {
+            return res.status(400).json({
+                ok: false,
+                err
+            })
+        }
+    
+
+    res.json({
+        ok:true,
+        ventas
+    })
+
+
+ })
+}
+
 
 module.exports={
     crearVenta,
     borrarVenta,
     modificarVenta,
-    obtenerVentas
+    obtenerVentas,
+    obtenerVentaUnica
 }
