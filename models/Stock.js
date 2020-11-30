@@ -5,29 +5,32 @@ const Schema = mongoose.Schema;
 const StockSchema = new Schema({
 
 
-    remitoHilanderia:{
-        type:Number,
+    idArticulo:{
+        type:String,
         require: true
     },
 
   
-   Articulos:[{
-       idArticulo:{type:String,require: true},
-       descripcion:{type:String,require: true},
-       cantidadKgs:{type:Number,require: true},
-       cantidadPiezas:{type:Number,require: true},
-       color:{type:String,require: true}
-   }], 
-
-    fecha:{
-        type:Date,
+    descripcion:{
+        type:String,
         required:true
     },
 
-    nroFactura:{
+    color:{
+        type:String,
+        required:false
+    },
+
+    cantidadKgs:{
+        type:Number,
+        required:false
+    },
+
+    cantidadPiezas:{
         type:Number,
         required:false
     }
+    
     
 })
 
