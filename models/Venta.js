@@ -20,7 +20,7 @@ const { object } = require('underscore');
         require:true,
     },
     
-    Articulos:[{
+    articulos:[{
        idArticulo:{type:Number, require:true},
        descripcion:{type:String, require:true},
        color:{type:String, require:true},

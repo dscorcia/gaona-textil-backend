@@ -42,12 +42,12 @@ try {
         fecha: venta.fecha,
         //cliente: clienteVenta[0].nombre,
         cliente: venta.cliente,
-        idArticulo: venta.Articulos.idArticulo,
-        descripcion: venta.Articulos.descripcion,
-        color: venta.Articulos.color,
-        cantidad: venta.Articulos.cantidad,
-        precioKg: venta.Articulos.precioKg,
-        subtotalArt: venta.Articulos.subtotalArt,
+        idArticulo: venta.articulos.idArticulo,
+        descripcion: venta.articulos.descripcion,
+        color: venta.articulos.color,
+        cantidad: venta.articulos.cantidad,
+        precioKg: venta.articulos.precioKg,
+        subtotalArt: venta.articulos.subtotalArt,
         total: venta.total
                        
     })
