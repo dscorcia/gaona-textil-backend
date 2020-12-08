@@ -12,6 +12,7 @@ const {_} = require('underscore');
 /*CREACION DE VENTA */
 const crearVenta = async (req,res = express.response)=>{
 
+    console.log(req.body);
     let {remitoVenta, cliente} = req.body
   
     const clienteVenta = await Cliente.find({nombre:cliente})
@@ -39,7 +40,8 @@ try {
         msg:"Venta cargada",
         remitoVenta: venta.remitoVenta,
         fecha: venta.fecha,
-        cliente: clienteVenta[0].nombre,
+        //cliente: clienteVenta[0].nombre,
+        cliente: venta.cliente,
         idArticulo: venta.Articulos.idArticulo,
         descripcion: venta.Articulos.descripcion,
         color: venta.Articulos.color,
