@@ -10,10 +10,10 @@ const {_} = require('underscore');
 /*CREACION DE CLIENTE */
 const crearCliente = async (req,res = express.response)=>{
 
-    //const {idRegistro} = req.body
+    const {idRegistro} = req.body
   
 try {
-   /* 
+   
     let cliente = await Cliente.findOne({idRegistro})
     if(cliente){
         return res.status(400).json({
@@ -21,7 +21,7 @@ try {
             msg:'Ya existe ese cliente'
         })
     }
-    */
+
 
      cliente =  new Cliente(req.body);
 
@@ -30,7 +30,7 @@ try {
      res.status(201).json({
         ok:true,
         msg:cliente.id,
-        //idRegistro: cliente.id,
+        idRegistro: cliente.id,
         cuit: cliente.cuit,
         razonSocial: cliente.razonSocial,
         nombre: cliente.nombre,

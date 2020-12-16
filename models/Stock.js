@@ -18,20 +18,46 @@ const StockSchema = new Schema({
 
     color:{
         type:String,
-        required:false
+        required:true
     },
 
     cantidadKgs:{
         type:Number,
-        required:false
+        required:true
     },
 
     cantidadPiezas:{
         type:Number,
-        required:false
+        required:true
+    },
+    costo:{
+        type:Number,
+        required:true
+    },
+    subtotalCosto:{
+        type:Number,
+        required:true
+    },
+    fabrica_tintoreria:{
+        type:String,
+        required:true
+    },
+    empresa:{
+        type:String,
+        required:true
+    },
+    ubicacion:{
+        type:String,
+        required:true
     }
     
-    
+
+    /* Agregarrrr */
+    //costo
+    //SubtotalCosto (costo * cantidadKgs)
+    //Fabrica-tintoreria
+    //Empresa
+    //Agregar ubicación (campana, gaona, tejeduria, tintoreria)
 })
 
 module.exports = mongoose.model('Stock', StockSchema);

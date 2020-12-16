@@ -1,5 +1,3 @@
-
-
 const express = require ('express');
 const {validationResult} = require ('express-validator');
 const Cliente   = require('../models/Cliente');
@@ -12,7 +10,7 @@ const {_} = require('underscore');
 /*CREACION DE VENTA */
 const crearVenta = async (req,res = express.response)=>{
 
-    console.log(req.body);
+
     let {remitoVenta, cliente} = req.body
   
     const clienteVenta = await Cliente.find({nombre:cliente})
@@ -29,9 +27,16 @@ try {
    
    // console.log('LOG ANTES DEL SAVE de la venta body ' + Venta(req.body))
      venta =  new Venta(req.body);
-     console.log('LOG DPS DEL SAVE de la venta ' + venta);
-       
-        
+
+        let subtotal;
+      console.log(req.body);
+    const calcularTotal = ()=>{
+        for (let i=0; i<req.body.articulos.length;i++)
+        subtotal = subtotal + (venta.articulos[i].cantidad * venta.articulos[i].precioKg)
+    }
+
+    calcularTotal();
+    console.log(subtotal);
 
      await venta.save();
 
@@ -40,18 +45,19 @@ try {
         msg:"Venta cargada",
         remitoVenta: venta.remitoVenta,
         fecha: venta.fecha,
-        //cliente: clienteVenta[0].nombre,
-        cliente: venta.cliente,
+        cliente: clienteVenta[0].nombre,
+        //cliente: venta.cliente,
         idArticulo: venta.articulos.idArticulo,
         descripcion: venta.articulos.descripcion,
         color: venta.articulos.color,
         cantidad: venta.articulos.cantidad,
         precioKg: venta.articulos.precioKg,
-        subtotalArt: venta.articulos.subtotalArt,
-        total: venta.total
+        //Revisar tema for de subtotal
+        subtotalArt: subtotal,
+        total:venta.total    
                        
     })
-
+    
 }catch(error) {
     console.log(error)
     res.status(500).json({

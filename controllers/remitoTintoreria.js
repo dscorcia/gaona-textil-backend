@@ -13,7 +13,6 @@ const {_} = require('underscore');
 const crearRemitoTintoreria = async (req,res = express.response)=>{
 
     let {nroRemitoTintoreria, remitoHilanderia} = req.body
-    console.log(nroRemitoTintoreria);
     const remitoH = await RemitoHilanderia.find({remitoHilanderia})
 
   
