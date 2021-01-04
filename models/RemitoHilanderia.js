@@ -11,7 +11,7 @@ const rHilanderiaSchema = new Schema({
     },
 
   
-   Articulos:[{
+   articulos:[{
        idArticulo:{type:String,require: true},
        descripcion:{type:String,require: true},
        cantidadKgs:{type:Number,require: true},

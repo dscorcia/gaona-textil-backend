@@ -45,8 +45,8 @@ try {
         msg:"Venta cargada",
         remitoVenta: venta.remitoVenta,
         fecha: venta.fecha,
-        cliente: clienteVenta[0].nombre,
-        //cliente: venta.cliente,
+        //cliente: clienteVenta[0].nombre,
+        cliente: venta.cliente,
         idArticulo: venta.articulos.idArticulo,
         descripcion: venta.articulos.descripcion,
         color: venta.articulos.color,
@@ -118,7 +118,7 @@ const modificarVenta = async(req, res) => {
     console.log("Antes del pick" + req.body);
 
     //El _.pick valida que los argumentos a actualizar sean los que se encuentran en el []
-    let body = _.pick(req.body, ['remitoVenta', 'fecha', 'cliente', 'Articulos']);
+    let body = _.pick(req.body, ['remitoVenta', 'fecha', 'cliente', 'articulos']);
     console.log("Despues del pick" + req.body);
     //El {new:true} es para que el return sea el obj actualizado
     //El {runValidators:true} es para que se apliquen las validaciones configuradas en el modelo de datos
