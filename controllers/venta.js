@@ -13,10 +13,10 @@ const crearVenta = async (req,res = express.response)=>{
 
     let {remitoVenta, cliente} = req.body
   
-    const clienteVenta = await Cliente.find({nombre:cliente})
-  
-try {
     
+    try {
+        
+    const clienteVenta = await Cliente.find({nombre:cliente})
     let venta = await Venta.findOne({remitoVenta})
     if(venta){
         return res.status(400).json({
@@ -45,7 +45,7 @@ try {
         msg:"Venta cargada",
         remitoVenta: venta.remitoVenta,
         fecha: venta.fecha,
-        //cliente: clienteVenta[0].nombre,
+        cliente: clienteVenta[0].nombre,
         cliente: venta.cliente,
         idArticulo: venta.articulos.idArticulo,
         descripcion: venta.articulos.descripcion,
