@@ -36,7 +36,7 @@ try {
     }
 
     calcularTotal();
-    console.log(subtotal);
+  
 
      await venta.save();
 

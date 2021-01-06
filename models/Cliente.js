@@ -11,7 +11,7 @@ const ClienteSchema = new Schema({
 
     cuit:{
         type:Number,
-        required:false
+        require:false
         
     },
 
