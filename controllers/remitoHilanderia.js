@@ -31,11 +31,11 @@ try {
      res.status(201).json({
         ok:true,
         msg:remito.remitoHilanderia,
-        articulo: remito.articulos.idArticulo,
+        /*articulo: remito.articulos.idArticulo,
         descripcion: remito.articulos.descripcion,
         cantidadKgs: remito.articulos.cantidadKgs,
         cantidadPiezas: remito.articulos.cantidadPiezas,
-        color: remito.articulos.color,
+        color: remito.articulos.color,*/
         fecha: remito.fecha,
         nroFactura: remito.nroFactura
                 
