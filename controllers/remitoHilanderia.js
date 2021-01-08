@@ -14,7 +14,7 @@ const crearRemitoHilanderia = async (req,res = express.response)=>{
   
   
 try {
-    remito = await RemitoHilanderia.findOne({remitoHilanderia:remitoHilanderia})
+    remito = await RemitoHilanderia.findOne({remitoHilanderia})
   
     if(remito){
         return res.status(400).json({
@@ -23,19 +23,20 @@ try {
         })
     }
    
-
     remito =  new RemitoHilanderia(req.body);
+    console.log(req.body);
+    console.log(remito);
 
      await remito.save();
 
      res.status(201).json({
         ok:true,
-        msg:remito.remitoHilanderia,
-        /*articulo: remito.articulos.idArticulo,
+        msg:"Remito Hilanderia cargado",
+        articulo: remito.articulos.idArticulo,
         descripcion: remito.articulos.descripcion,
         cantidadKgs: remito.articulos.cantidadKgs,
         cantidadPiezas: remito.articulos.cantidadPiezas,
-        color: remito.articulos.color,*/
+        color: remito.articulos.color,
         fecha: remito.fecha,
         nroFactura: remito.nroFactura
                 
