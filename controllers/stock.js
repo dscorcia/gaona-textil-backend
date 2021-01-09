@@ -23,9 +23,20 @@ const crearStock = async (req,res = express.response)=>{
 //             msg:'Ya existe el remito de tintoreria'
 //         })
 //     }
-   
 
-    stock =  new Stock(req.body);
+
+    stock =  new Stock({idArticulo: req.body.idArticulo,
+                        descripcion: req.body.descripcion.toUpperCase(),
+                        color: req.body.color.toUpperCase(),
+                        cantidadKgs: req.body.cantidadKgs,
+                        cantidadPiezas: req.body.cantidadPiezas,
+                        costo: req.body.costo,
+                        subtotalCosto: req.body.subtotalCosto,
+                        fabrica_tintoreria: req.body.fabrica_tintoreria.toUpperCase(),
+                        empresa: req.body.empresa.toUpperCase(),
+                        ubicacion: req.body.ubicacion.toUpperCase()
+                    });
+
 
      await stock.save();
 
@@ -62,14 +73,23 @@ const modificarStock = async(req, res) => {
     let idArticulo = req.params.idArticulo;
     let color = req.params.color;
     let ubicacion = req.params.ubicacion
-    console.log("Antes del pick" + req.body);
+
 
     //El _.pick valida que los argumentos a actualizar sean los que se encuentran en el []
     let body = _.pick(req.body, ['idArticulo', 'descripcion', 'color', 'cantidadKgs','cantidadPiezas','costo','subtotalCosto','fabrica_tintoreria','empresa','ubicacion']);
-    console.log("Despues del pick" + req.body);
+    console.log(body);
     //El {new:true} es para que el return sea el obj actualizado
     //El {runValidators:true} es para que se apliquen las validaciones configuradas en el modelo de datos
-    await Stock.updateOne({idArticulo,color,ubicacion}, body, { new: true, runValidators: true, context: 'query' }, (err, stockDB) => {
+    await Stock.updateOne({idArticulo,color,ubicacion}, {idArticulo:body.idArticulo,
+                                                        descripcion:body.descripcion.toUpperCase(),
+                                                        color:body.color.toUpperCase(),
+                                                        cantidadPiezas:body.cantidadPiezas,
+                                                        costo: body.costo,
+                                                        subtotalCosto: body.subtotalCosto,
+                                                        fabrica_tintoreria: body.fabrica_tintoreria.toUpperCase(),
+                                                        empresa:body.empresa.toUpperCase(),
+                                                        ubicacion:body.ubicacion.toUpperCase()},
+                         { new: true, runValidators: true, context: 'query' }, (err, stockDB) => {
         if (err) {
             return res.status(400).json({
                 ok: false,
@@ -96,9 +116,7 @@ const eliminarStock = async(req, res) => {
     let idArticulo = req.params.idArticulo;
     let color = req.params.color;
     let ubicacion = req.params.ubicacion
-    console.log(idArticulo);
-    console.log(color);
-    console.log(ubicacion);
+
         
 
     await Stock.deleteOne({idArticulo,color,ubicacion}, (err, stockDeleted) => {
