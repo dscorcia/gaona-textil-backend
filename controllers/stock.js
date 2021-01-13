@@ -28,13 +28,15 @@ const crearStock = async (req,res = express.response)=>{
     stock =  new Stock({idArticulo: req.body.idArticulo,
                         descripcion: req.body.descripcion.toUpperCase(),
                         color: req.body.color.toUpperCase(),
-                        cantidadKgs: req.body.cantidadKgs,
+                        cantidadKgsTintoreria: req.body.cantidadKgsTintoreria,
+                        cantidadKgsNegocio: req.body.cantidadKgsNegocio,
+                        cantidadPiezasTintoreria: req.body.cantidadPiezasTintoreria,
+                        cantidadPiezasNegocio: req.body.cantidadPiezasNegocio,
                         cantidadPiezas: req.body.cantidadPiezas,
                         costo: req.body.costo,
                         subtotalCosto: req.body.subtotalCosto,
                         fabrica_tintoreria: req.body.fabrica_tintoreria.toUpperCase(),
                         empresa: req.body.empresa.toUpperCase(),
-                        ubicacion: req.body.ubicacion.toUpperCase()
                     });
 
 
@@ -46,14 +48,14 @@ const crearStock = async (req,res = express.response)=>{
         idArticulo: stock.idArticulo,
         descripcion: stock.descripcion,
         color: stock.color,
-        cantidadKgs: stock.cantidadKgs,
+        cantidadKgsTintoreria: stock.cantidadKgsTintoreria,
+        cantidadKgsNegocio: stock.cantidadKgsNegocio,
+        cantidadPiezasTintoreria: stock.cantidadPiezasTintoreria,
         cantidadPiezas: stock.cantidadPiezas,
         costo: stock.costo,
         subtotalCosto: stock.subtotalCosto,
         fabrica_tintoreria: stock.fabrica_tintoreria,
-        empresa: stock.empresa,
-        ubicacion: stock.ubicacion
-                 
+        empresa: stock.empresa,                 
     })
 
 }catch(error) {
@@ -72,23 +74,25 @@ const modificarStock = async(req, res) => {
 
     let idArticulo = req.params.idArticulo;
     let color = req.params.color;
-    let ubicacion = req.params.ubicacion
 
 
     //El _.pick valida que los argumentos a actualizar sean los que se encuentran en el []
-    let body = _.pick(req.body, ['idArticulo', 'descripcion', 'color', 'cantidadKgs','cantidadPiezas','costo','subtotalCosto','fabrica_tintoreria','empresa','ubicacion']);
+    let body = _.pick(req.body, ['idArticulo', 'descripcion', 'color', 'cantidadKgsTintoreria','cantidadPiezasTintoreria','cantidadKgsNegocio','cantidadPiezasNegocio','costo','subtotalCosto','fabrica_tintoreria','empresa','ubicacion']);
     console.log(body);
     //El {new:true} es para que el return sea el obj actualizado
     //El {runValidators:true} es para que se apliquen las validaciones configuradas en el modelo de datos
-    await Stock.updateOne({idArticulo,color,ubicacion}, {idArticulo:body.idArticulo,
-                                                        descripcion:body.descripcion.toUpperCase(),
-                                                        color:body.color.toUpperCase(),
-                                                        cantidadPiezas:body.cantidadPiezas,
-                                                        costo: body.costo,
-                                                        subtotalCosto: body.subtotalCosto,
-                                                        fabrica_tintoreria: body.fabrica_tintoreria.toUpperCase(),
-                                                        empresa:body.empresa.toUpperCase(),
-                                                        ubicacion:body.ubicacion.toUpperCase()},
+    await Stock.updateOne({idArticulo,color}, {idArticulo: req.body.idArticulo,
+                                                        descripcion: req.body.descripcion.toUpperCase(),
+                                                        color: req.body.color.toUpperCase(),
+                                                        cantidadKgsTintoreria: req.body.cantidadKgsTintoreria,
+                                                        cantidadKgsNegocio: req.body.cantidadKgsNegocio,
+                                                        cantidadPiezasTintoreria: req.body.cantidadPiezasTintoreria,
+                                                        cantidadPiezasNegocio: req.body.cantidadPiezasNegocio,
+                                                        cantidadPiezas: req.body.cantidadPiezas,
+                                                        costo: req.body.costo,
+                                                        subtotalCosto: req.body.subtotalCosto,
+                                                        fabrica_tintoreria: req.body.fabrica_tintoreria.toUpperCase(),
+                                                        empresa: req.body.empresa.toUpperCase(),},
                          { new: true, runValidators: true, context: 'query' }, (err, stockDB) => {
         if (err) {
             return res.status(400).json({
@@ -115,11 +119,10 @@ const eliminarStock = async(req, res) => {
   
     let idArticulo = req.params.idArticulo;
     let color = req.params.color;
-    let ubicacion = req.params.ubicacion
 
         
 
-    await Stock.deleteOne({idArticulo,color,ubicacion}, (err, stockDeleted) => {
+    await Stock.deleteOne({idArticulo,color}, (err, stockDeleted) => {
            
 
         if (err) {
@@ -150,10 +153,29 @@ const eliminarStock = async(req, res) => {
 
 }
 
+/*OBTENER STOCK */
+
+const obtenerStock = async(req,res=express.response) =>{
+    const stock = await Stock.find({})
+    .exec((err,stock)=>{
+        if(err){
+            return res.status(400).json({
+                ok:false,
+                err
+            })
+        }
+    
+        res.json({
+            ok:true,
+            stock
+        })
+    })
+}
 
 
 module.exports={
     crearStock,
     modificarStock,
-    eliminarStock
+    eliminarStock,
+    obtenerStock
 }

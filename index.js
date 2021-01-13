@@ -25,6 +25,7 @@ app.use('/api/venta',require('./routes/venta'));
 app.use('/api/factura',require('./routes/factura'));
 app.use('/api/remitoHilanderia', require('./routes/remitoHilanderia'));
 app.use('/api/remitoTintoreria', require('./routes/remitoTintoreria'));
+app.use('/api/solicitudTintoreria', require('./routes/solicitudTintoreria.js'));
 app.use('/api/stock', require('./routes/stock'));
 
 

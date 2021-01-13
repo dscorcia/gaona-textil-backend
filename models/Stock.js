@@ -21,12 +21,20 @@ const StockSchema = new Schema({
         required:true
     },
 
-    cantidadKgs:{
+    cantidadKgsTintoreria:{
+        type:Number,
+        required:true
+    },
+    cantidadKgsNegocio:{
         type:Number,
         required:true
     },
 
-    cantidadPiezas:{
+    cantidadPiezasTintoreria:{
+        type:Number,
+        required:true
+    },
+    cantidadPiezasNegocio:{
         type:Number,
         required:true
     },
@@ -46,10 +54,10 @@ const StockSchema = new Schema({
         type:String,
         required:true
     },
-    ubicacion:{
-        type:String,
-        required:true
-    }
+    // ubicacion:{
+    //     type:String,
+    //     required:true
+    // }
     
 
     /* Agregarrrr */
