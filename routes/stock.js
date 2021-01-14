@@ -1,7 +1,7 @@
 const {Router} = require('express');
     const {check} = require('express-validator');
     const {validarCampos} = require('../middlewares/validar-campos');
-    const { crearStock, modificarStock, eliminarStock, obtenerStock } = require('../controllers/stock');
+    const { crearStock, modificarStock, eliminarStock, obtenerStock, obtenerStockUnico } = require('../controllers/stock');
     const router = Router();
 
 
@@ -51,7 +51,6 @@ router.put(
     [
         check('idArticulo', 'El articulo es obligatorio').not().isEmpty(),
         check('color','El color es obligatorio').not().isEmpty(),
-        check('ubicacion','La ubicación es obligatoria').not().isEmpty(),
         validarCampos
     ],
     eliminarStock);
@@ -59,6 +58,7 @@ router.put(
     /*OBTENER STOCK */
     router.get('/stock', obtenerStock)
 
-
+    /*OBTENER STOCK UNICO */
+    router.get('/stock/:idArticulo/:color', obtenerStockUnico)
 
     module.exports=router;

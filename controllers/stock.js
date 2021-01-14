@@ -172,10 +172,42 @@ const obtenerStock = async(req,res=express.response) =>{
     })
 }
 
+/*OBTENER UN UNICO STOCK*/
+
+const obtenerStockUnico = async (req, res = express.response)=>{
+
+    let idArticulo = req.params.idArticulo;
+    let color = req.params.color
+
+    const stockUnico = await Stock.findOne({$and:[
+        {idArticulo},
+        {color}
+    ]})
+    .exec((err, stockUnico) => {
+
+
+        if (err) {
+            return res.status(400).json({
+                ok: false,
+                err
+            })
+        }
+    
+
+    res.json({
+        ok:true,
+        stockUnico
+    })
+
+
+ })
+}
+
 
 module.exports={
     crearStock,
     modificarStock,
     eliminarStock,
-    obtenerStock
+    obtenerStock,
+    obtenerStockUnico
 }
