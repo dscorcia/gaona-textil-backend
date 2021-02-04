@@ -16,26 +16,24 @@ app.use(cors());
 //Directorio publico
 app.use(express.static('public'));
 
-app.get('*', (_req, res) => {
-    res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
-});
-  
-
 //Lectura y parseo del body
 app.use(express.json());
 
 // //Rutas
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/cliente', require('./routes/cliente'));
-app.use('/api/venta',require('./routes/venta'));
-app.use('/api/factura',require('./routes/factura'));
+app.use('/api/venta', require('./routes/venta'));
+app.use('/api/factura', require('./routes/factura'));
 app.use('/api/remitoHilanderia', require('./routes/remitoHilanderia'));
 app.use('/api/remitoTintoreria', require('./routes/remitoTintoreria'));
 app.use('/api/solicitudTintoreria', require('./routes/solicitudTintoreria.js'));
 app.use('/api/stock', require('./routes/stock'));
 
+app.get('*', (_req, res) => {
+	res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
+});
 
 //Escuchar peticiones
-app.listen(process.env.PORT, ()=>{console.log(`Servidor corriendo en puerto ${process.env.PORT}`)});
-
-//
+app.listen(process.env.PORT, () => {
+	console.log(`Servidor corriendo en puerto ${process.env.PORT}`);
+});
