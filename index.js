@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const { dbConnection } = require('./database/config');
 require('dotenv').config();
 const cors = require('cors');
@@ -14,6 +15,11 @@ app.use(cors());
 
 //Directorio publico
 app.use(express.static('public'));
+
+app.get('*', (_req, res) => {
+    res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
+});
+  
 
 //Lectura y parseo del body
 app.use(express.json());
