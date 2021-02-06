@@ -44,7 +44,7 @@ const crearVenta = async (req,res = express.response)=>{
         msg:"Venta cargada",
         remitoVenta: venta.remitoVenta,
         fecha: venta.fecha,
-        cliente: venta.cliente.toUpperCase(),
+        cliente: venta.cliente,
         idArticulo: venta.articulos.idArticulo,
         descripcion: venta.articulos.descripcion,
         color: venta.articulos.color,
@@ -113,10 +113,11 @@ const modificarVenta = async(req, res) => {
 
     let remitoVenta = req.params.remitoVenta;
     console.log(remitoVenta);
-    console.log("Antes del pick" + req.body);
+    console.log(req.body);
+
 
     //El _.pick valida que los argumentos a actualizar sean los que se encuentran en el []
-    let body = _.pick(req.body, ['remitoVenta', 'fecha', 'cliente', 'articulos']);
+    let body = _.pick(req.body, ['remitoVenta', 'fecha', 'cliente', 'articulos','total']);
     console.log("Despues del pick" + req.body);
     //El {new:true} es para que el return sea el obj actualizado
     //El {runValidators:true} es para que se apliquen las validaciones configuradas en el modelo de datos

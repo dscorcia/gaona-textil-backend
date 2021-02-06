@@ -26,6 +26,11 @@ const rHilanderiaSchema = new Schema({
     nroFactura:{
         type:Number,
         required:false
+    },
+
+    ubicacion:{
+        type:String,
+        require:true
     }
     
 })
