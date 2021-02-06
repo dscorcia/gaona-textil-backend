@@ -20,6 +20,7 @@ router.post(
         // check('Articulos.cantidadPiezas','La cantidad es obligatorio').not().isEmpty(),
         // check('Articulos.color','El color es  obligatorio').not().isEmpty(),
         check('fecha','La fecha es obligatoria').not().isEmpty(),
+        check('ubicacion','La ubicacion es obligatoria').not().isEmpty(),
         validarCampos
     ],
     crearRemitoHilanderia);
@@ -46,6 +47,7 @@ router.put('/modify/:remitoHilanderia',[
     // check('Articulos.cantidadPiezas','La cantidad es obligatorio').not().isEmpty(),
     // check('Articulos.color','El color es  obligatorio').not().isEmpty(),
     check('fecha','La fecha es obligatoria').not().isEmpty(),
+    check('ubicacion','La fecha es obligatoria').not().isEmpty(),
     validarCampos
     ],
     modificarRemitoHilanderia);

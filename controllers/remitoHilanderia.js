@@ -38,6 +38,7 @@ try {
         cantidadPiezas: remito.articulos.cantidadPiezas,
         color: remito.articulos.color,
         fecha: remito.fecha,
+        ubicacion: remito.ubicacion,
         nroFactura: remito.nroFactura
                 
     })
@@ -100,7 +101,7 @@ const modificarRemitoHilanderia = async(req, res) => {
     let remitoHilanderia = req.params.remitoHilanderia;
 
     //El _.pick valida que los argumentos a actualizar sean los que se encuentran en el []
-    let body = _.pick(req.body, ['remitoHilanderia', 'articulos', 'fecha','nroFactura']);
+    let body = _.pick(req.body, ['remitoHilanderia', 'articulos', 'fecha','nroFactura','ubicacion']);
   
     //El {new:true} es para que el return sea el obj actualizado
     //El {runValidators:true} es para que se apliquen las validaciones configuradas en el modelo de datos
