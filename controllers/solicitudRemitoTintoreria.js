@@ -35,7 +35,6 @@ try {
      res.status(201).json({
         ok:true,
         msg:solicitud.nroSolicitudTintoreria,
-        nroPartiada: solicitud.nroPartiada,
         remitoHilanderia: remitoHilanderia[0].remitoHilanderia,
         articulo: solicitud.articulos.idArticulo,
         descripcion: solicitud.articulos.descripcion,
@@ -106,7 +105,7 @@ const modificarSolicitudTintoreria = async(req, res) => {
 
 
     //El _.pick valida que los argumentos a actualizar sean los que se encuentran en el []
-    let body = _.pick(req.body, ['nroSolicitudTintoreria', 'nroPartida', 'remitoHilanderia', 'articulos', 'fecha']);
+    let body = _.pick(req.body, ['nroSolicitudTintoreria', 'remitoHilanderia', 'articulos', 'fecha']);
   
 
 

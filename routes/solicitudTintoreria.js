@@ -14,7 +14,6 @@ router.post(
     '/new',
     [
         check('nroSolicitudTintoreria','El número de remito es obligatorio.').not().isEmpty(),
-        check('nroPartida','El número de partida es obligatorio.').not().isEmpty(),
         check('remitoHilanderia','El número de remito es obligatorio.').not().isEmpty(),
         // check('Articulos.idArticulo','El articulo es obligatorio').not().isEmpty(),
         // check('Articulos.descripcion','La descripción es obligatoria').not().isEmpty(),
@@ -44,7 +43,6 @@ borrarSolicitudTintoreria);
 router.put('/modify/:solicitudTintoreria',[
 
     check('nroSolicitudTintoreria','El número de remito es obligatorio.').not().isEmpty(),
-    check('nroPartida','El número de partida es obligatorio.').not().isEmpty(),
     check('remitoHilanderia','El número de remito es obligatorio.').not().isEmpty(),
     // check('Articulos.idArticulo','El articulo es obligatorio').not().isEmpty(),
     // check('Articulos.descripcion','La descripción es obligatoria').not().isEmpty(),

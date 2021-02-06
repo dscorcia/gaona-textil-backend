@@ -9,10 +9,6 @@ const solicitudTintoreriaSchema = new Schema({
         type:Number,
         required:true,
     },
-    nroPartida:{
-        type:Number,
-        required:true
-    },
  
     remitoHilanderia:{
         type:Array,
