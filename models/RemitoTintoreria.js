@@ -10,7 +10,7 @@ const rTintoreriaSchema = new Schema({
         required:true,
     },
     nroPartida:{
-        type:Number,
+        type:String,
         required:true
     },
  

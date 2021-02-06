@@ -14,7 +14,7 @@ router.post(
     [
         check('remitoVenta', 'El remito de venta es obligatorio').not().isEmpty(),
         check('fecha','La fecha es obligatoria').not().isEmpty(),
-        check('cliente','El cliente es obligatorio').not().isEmpty(),
+        //check('cliente','El cliente es obligatorio').not().isEmpty(),
         // check('Articulos.idArticulo','El artículo es obligatorio').not().isEmpty(),
         // check('descripcion','La descripción es obligatorio').not().isEmpty(),
         // check('color','El color es obligatorio').not().isEmpty(),

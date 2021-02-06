@@ -11,12 +11,11 @@ const {_} = require('underscore');
 const crearVenta = async (req,res = express.response)=>{
 
 
-    let {remitoVenta, cliente} = req.body
+    let {remitoVenta} = req.body
   
     
     try {
         
-    const clienteVenta = await Cliente.find({nombre:cliente})
     let venta = await Venta.findOne({remitoVenta})
     if(venta){
         return res.status(400).json({
@@ -45,8 +44,7 @@ const crearVenta = async (req,res = express.response)=>{
         msg:"Venta cargada",
         remitoVenta: venta.remitoVenta,
         fecha: venta.fecha,
-        cliente: clienteVenta[0].nombre,
-        cliente: venta.cliente,
+        cliente: venta.cliente.toUpperCase(),
         idArticulo: venta.articulos.idArticulo,
         descripcion: venta.articulos.descripcion,
         color: venta.articulos.color,

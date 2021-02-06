@@ -17,7 +17,7 @@ const { object } = require('underscore');
     
     cliente:{
         type:String,
-        require:true,
+        require:false,
     },
     
     articulos:[{
