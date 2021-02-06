@@ -25,7 +25,12 @@ const crearVenta = async (req,res = express.response)=>{
     }
    
    // console.log('LOG ANTES DEL SAVE de la venta body ' + Venta(req.body))
-     venta =  new Venta(req.body);
+     venta =  new Venta({remitoVenta:req.body.remitoVenta,
+                        fecha: req.body.fecha,
+                        cliente: req.body.cliente.toUpperCase(),
+                        articulos:req.body.articulos,
+                        total: req.body.total
+                        });
 
         let subtotal;
       console.log(req.body);
