@@ -19,6 +19,7 @@ const {Router} = require('express');
          check('cantidadPiezasNegocio','El precio por kilo es obligatorio').not().isEmpty(),
          check('costo','El costo es obligatorio').not().isEmpty(),
          check('subtotalCosto','El subtotal del costo es obligatorio').not().isEmpty(),
+         check('subtotalCostoTintoreria','El subtotal del costo de tintoreria es obligatorio').not().isEmpty(),
          check('fabrica_tintoreria','La fabrica es obligatoria').not().isEmpty(),
          check('empresa','La empresa es obligatoria').not().isEmpty(),
          validarCampos
@@ -39,6 +40,7 @@ router.put(
          check('cantidadPiezasNegocio','El precio por kilo es obligatorio').not().isEmpty(),
          check('costo','El costo es obligatorio').not().isEmpty(),
          check('subtotalCosto','El subtotal del costo es obligatorio').not().isEmpty(),
+         check('subtotalCostoTintoreria','El subtotal del costo de tintoreria es obligatorio').not().isEmpty(),
          check('fabrica_tintoreria','La fabrica es obligatoria').not().isEmpty(),
          check('empresa','La empresa es obligatoria').not().isEmpty(),
         validarCampos

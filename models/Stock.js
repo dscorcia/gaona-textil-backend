@@ -46,6 +46,10 @@ const StockSchema = new Schema({
         type:Number,
         required:true
     },
+    subtotalCostoTintoreria:{
+        type:Number,
+        required:true
+    },
     fabrica_tintoreria:{
         type:String,
         required:true

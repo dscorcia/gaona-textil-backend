@@ -35,6 +35,7 @@ const crearStock = async (req,res = express.response)=>{
                         cantidadPiezas: req.body.cantidadPiezas,
                         costo: req.body.costo,
                         subtotalCosto: req.body.subtotalCosto,
+                        subtotalCostoTintoreria: req.body.subtotalCostoTintoreria,
                         fabrica_tintoreria: req.body.fabrica_tintoreria.toUpperCase(),
                         empresa: req.body.empresa.toUpperCase(),
                     });
@@ -54,6 +55,7 @@ const crearStock = async (req,res = express.response)=>{
         cantidadPiezas: stock.cantidadPiezas,
         costo: stock.costo,
         subtotalCosto: stock.subtotalCosto,
+        subtotalCostoTintoreria: stock.subtotalCostoTintoreria,
         fabrica_tintoreria: stock.fabrica_tintoreria,
         empresa: stock.empresa,                 
     })
@@ -77,7 +79,7 @@ const modificarStock = async(req, res) => {
 
 
     //El _.pick valida que los argumentos a actualizar sean los que se encuentran en el []
-    let body = _.pick(req.body, ['idArticulo', 'descripcion', 'color', 'cantidadKgsTintoreria','cantidadPiezasTintoreria','cantidadKgsNegocio','cantidadPiezasNegocio','costo','subtotalCosto','fabrica_tintoreria','empresa','ubicacion']);
+    let body = _.pick(req.body, ['idArticulo', 'descripcion', 'color', 'cantidadKgsTintoreria','cantidadPiezasTintoreria','cantidadKgsNegocio','cantidadPiezasNegocio','costo','subtotalCosto','subtotalCostoTintoreria','fabrica_tintoreria','empresa','ubicacion']);
     console.log(body);
     //El {new:true} es para que el return sea el obj actualizado
     //El {runValidators:true} es para que se apliquen las validaciones configuradas en el modelo de datos
@@ -91,6 +93,7 @@ const modificarStock = async(req, res) => {
                                                         cantidadPiezas: req.body.cantidadPiezas,
                                                         costo: req.body.costo,
                                                         subtotalCosto: req.body.subtotalCosto,
+                                                        subtotalCostoTintoreria: req.body.subtotalCostoTintoreria,
                                                         fabrica_tintoreria: req.body.fabrica_tintoreria.toUpperCase(),
                                                         empresa: req.body.empresa.toUpperCase(),},
                          { new: true, runValidators: true, context: 'query' }, (err, stockDB) => {
