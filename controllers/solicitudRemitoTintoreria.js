@@ -3,6 +3,7 @@ const express = require ('express');
 const {validationResult} = require ('express-validator');
 const RemitoHilanderia  = require('../models/RemitoHilanderia')
 const SolicitudRemitoTintoreria  = require('../models/SolicitudRemitoTintoreria')
+const Stock = require ('../models/Stock');
 const {_} = require('underscore');
 
 
@@ -12,8 +13,9 @@ const {_} = require('underscore');
 /*CREACION DE SOLICITUD TINTORERIA */
 const crearSolicitudTintoreria = async (req,res = express.response)=>{
 
-    let {nroSolicitudTintoreria, remitoHilanderia} = req.body
+    const {nroSolicitudTintoreria, remitoHilanderia, articulos} = req.body
     const remitoH = await RemitoHilanderia.find({remitoHilanderia})
+
 
   
     // const clienteVenta = await Cliente.find({nombre:cliente})
@@ -31,6 +33,11 @@ try {
     solicitud =  new SolicitudRemitoTintoreria(req.body);
 
      await solicitud.save();
+
+     for( let articulo of articulos){
+         
+        ActualizarCantidadTintoreria(articulo);
+    }
 
      res.status(201).json({
         ok:true,
@@ -56,6 +63,47 @@ try {
 
 }
 
+
+const ActualizarCantidadTintoreria = async(req, res) => {
+
+    console.log(req);
+    const { idArticulo, descripcion, color, cantidadKgs, cantidadPiezas, cantidadKgsRib, cantidadPiezasRib } = req;
+
+    const stockUnico = await Stock.findOne({$and:[
+        {idArticulo},
+        {color}
+    ]})
+
+    if(stockUnico){
+
+        await Stock.updateOne({idArticulo,color},
+            { 
+                idArticulo: idArticulo,
+                descripcion: descripcion.toUpperCase(),
+                color: color.toUpperCase(),
+                cantidadKgsTintoreria: parseFloat(cantidadKgs) + parseFloat(stockUnico.cantidadKgsTintoreria),
+                cantidadKgsNegocio: stockUnico.cantidadKgsNegocio,
+                cantidadPiezasTintoreria: parseFloat(cantidadPiezas) + parseFloat(stockUnico.cantidadPiezasTintoreria),
+                cantidadPiezasNegocio: stockUnico.cantidadPiezasNegocio,
+                cantidadPiezas: cantidadPiezas,
+                costo: stockUnico.costo,
+                subtotalCosto: stockUnico.subtotalCosto,
+                fabrica_tintoreria: stockUnico.fabrica_tintoreria,
+                empresa: stockUnico.empresa,
+            },
+            { new: true, runValidators: true, context: 'query' }, (err, stockDB) => {
+                if (err) {
+                    console.log(err);
+                }
+            
+        
+            });
+
+    }
+    
+
+
+}
 
 
 /*BORRAR SOLICITUD TINTORERIA */
