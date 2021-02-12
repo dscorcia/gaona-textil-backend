@@ -3,6 +3,7 @@ const express = require ('express');
 const {validationResult} = require ('express-validator');
 const RemitoHilanderia  = require('../models/RemitoHilanderia')
 const RemitoTintoreria  = require('../models/RemitoTintoreria')
+const Stock = require ('../models/Stock');
 const {_} = require('underscore');
 
 
