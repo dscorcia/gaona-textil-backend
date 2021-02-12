@@ -13,7 +13,7 @@ const {_} = require('underscore');
 /*CREACION DE REMITO TINTORERIA */
 const crearRemitoTintoreria = async (req,res = express.response)=>{
 
-    let {nroRemitoTintoreria, remitoHilanderia} = req.body
+    let {nroRemitoTintoreria, remitoHilanderia, articulos} = req.body
     const remitoH = await RemitoHilanderia.find({remitoHilanderia})
 
   
@@ -32,6 +32,11 @@ try {
     remito =  new RemitoTintoreria(req.body);
 
      await remito.save();
+
+     for( let articulo of articulos){
+         
+        ActualizarCantidadNegocio(articulo);
+    }
 
      res.status(201).json({
         ok:true,
@@ -55,6 +60,46 @@ try {
         msg:'Hable con el administrador, no se creó el remito de hilanderia'
     });
     }
+
+}
+
+const ActualizarCantidadNegocio = async(req, res) => {
+
+    console.log(req);
+    const { idArticulo, descripcion, color, cantidadKgs, cantidadPiezas, cantidadKgsRib, cantidadPiezasRib } = req;
+
+    const stockUnico = await Stock.findOne({$and:[
+        {idArticulo},
+        {color}
+    ]})
+
+    if(stockUnico){
+
+        await Stock.updateOne({idArticulo,color},
+            { 
+                idArticulo: idArticulo,
+                descripcion: descripcion.toUpperCase(),
+                color: color.toUpperCase(),
+                cantidadKgsTintoreria: parseFloat(stockUnico.cantidadKgsTintoreria) - parseFloat(cantidadKgs),
+                cantidadKgsNegocio: stockUnico.cantidadKgsNegocio + parseFloat(cantidadKgs),
+                cantidadPiezasTintoreria: parseFloat(stockUnico.cantidadPiezasTintoreria) - parseFloat(cantidadPiezas),
+                cantidadPiezasNegocio: stockUnico.cantidadPiezasNegocio + parseFloat(cantidadPiezas),
+                cantidadPiezas: cantidadPiezas,
+                costo: stockUnico.costo,
+                subtotalCosto: stockUnico.subtotalCosto,
+                fabrica_tintoreria: stockUnico.fabrica_tintoreria,
+                empresa: stockUnico.empresa,
+            },
+            { new: true, runValidators: true, context: 'query' }, (err, stockDB) => {
+                if (err) {
+                    console.log(err);
+                }
+        
+            });
+
+    }
+    
+
 
 }
 

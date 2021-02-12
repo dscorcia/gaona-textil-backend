@@ -2,6 +2,7 @@ const express = require ('express');
 const {validationResult} = require ('express-validator');
 const Cliente   = require('../models/Cliente');
 const Venta = require('../models/Venta');
+const Stock = require ('../models/Stock');
 const {_} = require('underscore');
 
 
@@ -11,7 +12,7 @@ const {_} = require('underscore');
 const crearVenta = async (req,res = express.response)=>{
 
 
-    let {remitoVenta} = req.body
+    let {remitoVenta, articulos } = req.body
   
     
     try {
@@ -40,9 +41,12 @@ const crearVenta = async (req,res = express.response)=>{
     }
 
     calcularTotal();
-  
 
      await venta.save();
+
+     for( let articulo of articulos){    
+        ActualizarCantidadNegocio(articulo);
+    }
 
      res.status(201).json({
         ok:true,    
@@ -67,6 +71,43 @@ const crearVenta = async (req,res = express.response)=>{
         ok: false,
         msg:'Hable con el administrador, no se creó la venta'
     });
+    }
+
+}
+
+const ActualizarCantidadNegocio = async(req, res) => {
+
+    console.log(req);
+    const { idArticulo, descripcion, color, cantidad } = req;
+
+    const stockUnico = await Stock.findOne({$and:[
+        {idArticulo},
+        {color}
+    ]})
+
+    if(stockUnico){
+
+        await Stock.updateOne({idArticulo,color},
+            { 
+                idArticulo: idArticulo,
+                descripcion: descripcion.toUpperCase(),
+                color: color.toUpperCase(),
+                cantidadKgsTintoreria: parseFloat(stockUnico.cantidadKgsTintoreria),
+                cantidadKgsNegocio: parseFloat(stockUnico.cantidadKgsNegocio) - parseFloat(cantidad),
+                cantidadPiezasTintoreria: parseFloat(stockUnico.cantidadPiezasTintoreria),
+                cantidadPiezasNegocio: stockUnico.cantidadPiezasNegocio,
+                cantidadPiezas: stockUnico.cantidadPiezas,
+                costo: stockUnico.costo,
+                subtotalCosto: stockUnico.subtotalCosto,
+                fabrica_tintoreria: stockUnico.fabrica_tintoreria,
+                empresa: stockUnico.empresa,
+            },
+            { new: true, runValidators: true, context: 'query' }, (err, stockDB) => {
+                if (err) {
+                    console.log(err);
+                }
+        
+            });
     }
 
 }
