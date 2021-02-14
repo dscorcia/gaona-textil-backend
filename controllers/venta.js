@@ -58,6 +58,7 @@ const crearVenta = async (req,res = express.response)=>{
         descripcion: venta.articulos.descripcion,
         color: venta.articulos.color,
         cantidad: venta.articulos.cantidad,
+        cantidadPiezas: venta.articulos.cantidadPiezas,
         precioKg: venta.articulos.precioKg,
         //Revisar tema for de subtotal
         subtotalArt: subtotal,

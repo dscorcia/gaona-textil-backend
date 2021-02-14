@@ -25,6 +25,7 @@ const { object } = require('underscore');
        descripcion:{type:String, require:true},
        color:{type:String, require:true},
        cantidad:{type:Number, require:true},
+       cantidadPiezas:{type:Number, require:true},
        precioKg:{type:Number, require:true},
        subtotalArt:{type:Number, require:true},
 
