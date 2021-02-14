@@ -79,7 +79,7 @@ const crearVenta = async (req,res = express.response)=>{
 const ActualizarCantidadNegocio = async(req, res) => {
 
     console.log(req);
-    const { idArticulo, descripcion, color, cantidad } = req;
+    const { idArticulo, descripcion, color, cantidad, cantidadPiezas } = req;
 
     const stockUnico = await Stock.findOne({$and:[
         {idArticulo},
@@ -96,7 +96,7 @@ const ActualizarCantidadNegocio = async(req, res) => {
                 cantidadKgsTintoreria: parseFloat(stockUnico.cantidadKgsTintoreria),
                 cantidadKgsNegocio: parseFloat(stockUnico.cantidadKgsNegocio) - parseFloat(cantidad),
                 cantidadPiezasTintoreria: parseFloat(stockUnico.cantidadPiezasTintoreria),
-                cantidadPiezasNegocio: stockUnico.cantidadPiezasNegocio,
+                cantidadPiezasNegocio: parseFloat(stockUnico.cantidadPiezasNegocio) - parseFloat(cantidadPiezas),
                 cantidadPiezas: stockUnico.cantidadPiezas,
                 costo: stockUnico.costo,
                 subtotalCosto: stockUnico.subtotalCosto,
