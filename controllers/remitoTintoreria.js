@@ -99,7 +99,43 @@ const ActualizarCantidadNegocio = async(req, res) => {
 
     }
     
+}
 
+
+const ActualizarCantidadNegocioEliminar = async(req, res) => {
+
+    console.log(req);
+    const { idArticulo, descripcion, color, cantidadKgs, cantidadPiezas } = req;
+
+    const stockUnico = await Stock.findOne({$and:[
+        {idArticulo},
+        {color}
+    ]})
+
+    if(stockUnico){
+
+        await Stock.updateOne({idArticulo,color},
+            { 
+                idArticulo: idArticulo,
+                descripcion: descripcion.toUpperCase(),
+                color: color.toUpperCase(),
+                cantidadKgsTintoreria: parseFloat(stockUnico.cantidadKgsTintoreria),
+                cantidadKgsNegocio: parseFloat(stockUnico.cantidadKgsNegocio) - parseFloat(cantidadKgs),
+                cantidadPiezasTintoreria: parseFloat(stockUnico.cantidadPiezasTintoreria),
+                cantidadPiezasNegocio: parseFloat(stockUnico.cantidadPiezasNegocio) - parseFloat(cantidadPiezas),
+                cantidadPiezas: stockUnico.cantidadPiezas,
+                costo: stockUnico.costo,
+                subtotalCosto: stockUnico.subtotalCosto,
+                fabrica_tintoreria: stockUnico.fabrica_tintoreria,
+                empresa: stockUnico.empresa,
+            },
+            { new: true, runValidators: true, context: 'query' }, (err, stockDB) => {
+                if (err) {
+                    console.log(err);
+                }
+        
+            });
+    }
 
 }
 
@@ -110,6 +146,14 @@ const borrarRemitoTintoreria = async(req, res) => {
 
    
     let nroRemitoTintoreria = req.params.remitoTintoreria;
+
+    const remitoTintoreria = await RemitoTintoreria.findOne({nroRemitoTintoreria})
+
+    for( articulo of remitoTintoreria.articulos){
+
+        ActualizarCantidadNegocioEliminar(articulo);
+
+    }
    
 
     await RemitoTintoreria.deleteOne({nroRemitoTintoreria}, (err, remitoTintoreriaDeleted) => {

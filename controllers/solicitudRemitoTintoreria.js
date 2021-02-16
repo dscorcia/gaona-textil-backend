@@ -100,8 +100,45 @@ const ActualizarCantidadTintoreria = async(req, res) => {
             });
 
     }
-    
 
+}
+
+const ActualizarCantidadTintoreriaEliminar = async(req, res) => {
+
+    console.log(req);
+    const { idArticulo, descripcion, color, cantidadKgs, cantidadPiezas, cantidadKgsRib, cantidadPiezasRib } = req;
+
+    const stockUnico = await Stock.findOne({$and:[
+        {idArticulo},
+        {color}
+    ]})
+
+    if(stockUnico){
+
+        await Stock.updateOne({idArticulo,color},
+            { 
+                idArticulo: idArticulo,
+                descripcion: descripcion.toUpperCase(),
+                color: color.toUpperCase(),
+                cantidadKgsTintoreria: parseFloat(stockUnico.cantidadKgsTintoreria) -  parseFloat(cantidadKgs),
+                cantidadKgsNegocio: stockUnico.cantidadKgsNegocio,
+                cantidadPiezasTintoreria: parseFloat(stockUnico.cantidadPiezasTintoreria) - parseFloat(cantidadPiezas) ,
+                cantidadPiezasNegocio: stockUnico.cantidadPiezasNegocio,
+                cantidadPiezas: cantidadPiezas,
+                costo: stockUnico.costo,
+                subtotalCosto: stockUnico.subtotalCosto,
+                fabrica_tintoreria: stockUnico.fabrica_tintoreria,
+                empresa: stockUnico.empresa,
+            },
+            { new: true, runValidators: true, context: 'query' }, (err, stockDB) => {
+                if (err) {
+                    console.log(err);
+                }
+            
+        
+            });
+
+    }
 
 }
 
@@ -110,8 +147,17 @@ const ActualizarCantidadTintoreria = async(req, res) => {
 const borrarSolicitudTintoreria = async(req, res) => {
 
    
-    let nroSolicitudTintoreria = req.params.solicitudTintoreria;
-   console.log(nroSolicitudTintoreria);
+    let nroSolicitudTintoreria = req.params.nroSolicitudTintoreria;
+   
+    const solicitudTintoreria = await SolicitudRemitoTintoreria.findOne({nroSolicitudTintoreria});
+
+    for( articulo of solicitudTintoreria.articulos){
+
+        ActualizarCantidadTintoreriaEliminar(articulo);
+
+    }
+
+
 
     await SolicitudRemitoTintoreria.deleteOne({nroSolicitudTintoreria}, (err, solicitudTintoreriaDeleted) => {
            

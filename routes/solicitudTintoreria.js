@@ -29,9 +29,9 @@ router.post(
 
 
     /*BORRAR  REMITO TINTORERIA */
-router.delete('/delete/:solicitudTintoreria',[
+router.delete('/delete/:nroSolicitudTintoreria',[
    
-    check('nroSolicitudTintoreria','El número de remito es obligatorio.').not().isEmpty(),
+    check('nroSolicitudTintoreria','El número de Solicitud es obligatorio.').not().isEmpty(),
     validarCampos
 
 ],
